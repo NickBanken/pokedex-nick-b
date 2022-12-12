@@ -7,6 +7,7 @@ module.exports = {
         "light-grey": "#EFF0F1",
         "dark-grey": "#3C3C4399",
         dark: "#1F2029",
+        app: "#F9F9F9",
       },
       fontFamily: {
         display: ["SF Pro Display"],
