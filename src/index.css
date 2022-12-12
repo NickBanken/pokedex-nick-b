@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: SF Pro Display;
+    font-weight: 400;
+    src: url("./assets/fonts/sf-pro-display/SF-Pro-Display-Regular.OTF")
+      format("opentype");
+  }
+
+  @font-face {
+    font-family: SF Pro Display;
+    font-weight: 700;
+    src: url("./assets/fonts/sf-pro-display/SF-Pro-Display-Bold.OTF")
+      format("opentype");
+  }
+
+  @font-face {
+    font-family: SF Pro Text;
+    font-weight: 400;
+    src: url("./assets/fonts/sf-pro-text/SF-Pro-Text-Regular.otf")
+      format("opentype");
+  }
+
+  @font-face {
+    font-family: SF Pro Text;
+    font-weight: 300;
+    src: url("./assets/fonts/sf-pro-text/SF-Pro-Text-Light.otf")
+      format("opentype");
+  }
+}
