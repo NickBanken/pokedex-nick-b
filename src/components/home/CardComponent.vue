@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, toRef } from "vue";
+import { defineProps } from "vue";
 import type { PropType } from "vue";
 
 import type Pokemon from "@/types/pokemon";
@@ -10,27 +10,37 @@ const props = defineProps({
     type: Object as PropType<Pokemon[]>,
   },
 });
+
+const addCapitalFirstLetter = (string: string) => {
+  return String(string).charAt(0).toUpperCase() + String(string).slice(1);
+};
 </script>
 
 <template>
-  <li class="flex items-center bg-white rounded-xl my-[5px] drop-shadow-lg">
-    <div>
-      <img class="p-1" :src="props.pokemon.sprites['front_default']" alt="" />
+  <li
+    class="my-[5px] flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] drop-shadow-lg"
+  >
+    <img
+      class="mx-2 h-full scale-[2]"
+      :src="props.pokemon.sprites['front_default']"
+      :alt="'pokemon-' + props.pokemon.name"
+    />
+
+    <div class="ml-4">
+      <h2 class="text-large font-bold">
+        {{ addCapitalFirstLetter(props.pokemon.name) }}
+      </h2>
+      <p class="text-normal text-grey">
+        Nr. {{ String(props.pokemon.id).padStart(3, "0") }}
+      </p>
     </div>
-    <div>
-      <h2 class="text-bold">{{ props.pokemon.name }}</h2>
-      <p>{{ String(props.pokemon.id).padStart(3, 0) }}</p>
-    </div>
-    <ul class="flex ml-auto text-[12px]">
+    <ul class="ml-auto flex self-start text-[12px]">
       <li
-        class="px-[10px] py-[3px] text-white bg-blue-500 rounded-xl ml-[5px]"
+        class="ml-[5px] rounded-xl bg-blue-500 px-[10px] py-[3px] text-white"
         :key="typeInfo"
         v-for="typeInfo in props.pokemon.types"
       >
-        {{
-          String(typeInfo.type.name).charAt(0).toUpperCase() +
-          String(typeInfo.type.name).slice(1)
-        }}
+        {{ addCapitalFirstLetter(typeInfo.type.name) }}
       </li>
     </ul>
 

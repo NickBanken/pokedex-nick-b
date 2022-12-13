@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-light-grey text-dark-grey text-[17px] mt-[14px] mb-[19px] rounded-xl py-[7px] px-[8px] flex"
+    class="mt-[14px] mb-[19px] flex rounded-xl bg-light-grey py-[7px] px-[8px] text-large text-dark-grey"
   >
     <img
       alt="magnifying-glass"
@@ -9,7 +9,7 @@
     />
     <input
       type="text"
-      class="bg-transparent placeholder-dark-grey font-text focus-visible:outline-none"
+      class="bg-transparent font-text placeholder-dark-grey focus-visible:outline-none"
       placeholder="Pokemon zoeken"
     />
   </div>
