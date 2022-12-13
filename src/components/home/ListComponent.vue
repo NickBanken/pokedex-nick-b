@@ -2,6 +2,8 @@
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
+import type Pokemon from "@/types/pokemon";
+
 import CardComponentVue from "./CardComponent.vue";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
@@ -16,11 +18,11 @@ onMounted(() => {
 
 <template>
   <ul v-if="pokemons" class="flex flex-col">
-    <CardComponentVue
+    <card-component-vue
       :key="pokemon.name"
       :pokemon="pokemon"
       v-for="pokemon in pokemons"
     >
-    </CardComponentVue>
+    </card-component-vue>
   </ul>
 </template>
