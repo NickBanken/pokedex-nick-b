@@ -9,7 +9,7 @@ import typeColors from "@/utils/typeColors";
 const props = defineProps({
   pokemon: {
     required: true,
-    type: Object as PropType<Pokemon[]>,
+    type: Object as PropType<Pokemon>,
   },
 });
 
@@ -38,10 +38,11 @@ const addCapitalFirstLetter = (string: string) => {
     </div>
     <ul class="ml-auto flex self-start text-[12px]">
       <li
-        :class="typeColors[typeInfo.type.name]"
+      :class="typeColors[typeInfo.type.name]"
         class="ml-[5px] rounded-xl px-[10px] py-[3px] text-white"
-        :key="typeInfo"
+        
         v-for="typeInfo in props.pokemon.types"
+        :key="typeInfo.slot"
       >
         {{ addCapitalFirstLetter(typeInfo.type.name) }}
       </li>

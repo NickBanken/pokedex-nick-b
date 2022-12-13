@@ -2,8 +2,6 @@
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
-import type Pokemon from "@/types/pokemon";
-
 import CardComponentVue from "./CardComponent.vue";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
@@ -17,6 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <button @click="pokemonStore.toggleOrder">Sort</button>
   <ul v-if="pokemons" class="flex flex-col">
     <card-component-vue
       :key="pokemon.name"
