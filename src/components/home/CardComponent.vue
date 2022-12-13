@@ -4,6 +4,8 @@ import type { PropType } from "vue";
 
 import type Pokemon from "@/types/pokemon";
 
+import typeColors from "@/utils/typeColors";
+
 const props = defineProps({
   pokemon: {
     required: true,
@@ -36,7 +38,8 @@ const addCapitalFirstLetter = (string: string) => {
     </div>
     <ul class="ml-auto flex self-start text-[12px]">
       <li
-        class="ml-[5px] rounded-xl bg-blue-500 px-[10px] py-[3px] text-white"
+        :class="typeColors[typeInfo.type.name]"
+        class="ml-[5px] rounded-xl px-[10px] py-[3px] text-white"
         :key="typeInfo"
         v-for="typeInfo in props.pokemon.types"
       >
