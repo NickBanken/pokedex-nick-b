@@ -31,29 +31,28 @@ const sortList = () => {
         <button-component-vue
           @click="pokemonStore.setOrder('ASC-AZ')"
           :icon="'src/assets/icons/az-down.svg'"
-        >
-          <template v-slot:desc>Alfabetisch oplopend</template>
-        </button-component-vue>
+          :desc="'Alfabetisch oplopend'"
+        />
 
         <button-component-vue
           @click="pokemonStore.setOrder('DESC-AZ')"
           :icon="'src/assets/icons/az-up.svg'"
+          :desc="'Alfabetisch aflopend'"
         >
-          <template v-slot:desc>Alfabetisch aflopend</template>
         </button-component-vue>
 
         <button-component-vue
           @click="pokemonStore.setOrder('ASC-NUM')"
           :icon="'src/assets/icons/num-up.svg'"
+          :desc="'Numeriek oplopend'"
         >
-          <template v-slot:desc>Numeriek oplopend</template>
         </button-component-vue>
 
         <button-component-vue
           @click="pokemonStore.setOrder('DESC-NUM')"
           :icon="'src/assets/icons/num-down.svg'"
+          :desc="'Numeriek aflopend'"
         >
-          <template v-slot:desc>Numeriek aflopend</template>
         </button-component-vue>
 
         <button

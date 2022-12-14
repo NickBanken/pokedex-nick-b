@@ -19,34 +19,37 @@ const addCapitalFirstLetter = (string: string) => {
 </script>
 
 <template>
-  <li
-    class="my-[5px] flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] drop-shadow-lg"
-  >
-    <img
-      class="mx-2 h-full scale-[2]"
-      :src="props.pokemon.sprites['front_default']"
-      :alt="'pokemon-' + props.pokemon.name"
-    />
+  <li>
+    <router-link
+      to="/details"
+      class="my-[5px] flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] drop-shadow-lg"
+    >
+      <img
+        class="mx-2 h-full scale-[2]"
+        :src="props.pokemon.sprites['front_default']"
+        :alt="'pokemon-' + props.pokemon.name"
+      />
 
-    <div class="ml-4">
-      <h2 class="font-bold text-large">
-        {{ addCapitalFirstLetter(props.pokemon.name) }}
-      </h2>
-      <p class="text-normal text-grey">
-        Nr. {{ String(props.pokemon.id).padStart(3, "0") }}
-      </p>
-    </div>
-    <ul class="ml-auto flex flex-wrap gap-1 self-start text-[12px]">
-      <li
-        :class="typeColors[typeInfo.type.name as keyof {}]"
-        class="ml-[5px] rounded-xl px-[10px] py-[3px] text-white"
-        v-for="typeInfo in props.pokemon.types"
-        :key="typeInfo.slot"
-      >
-        {{ addCapitalFirstLetter(typeInfo.type.name) }}
-      </li>
-    </ul>
+      <div class="ml-4">
+        <h2 class="font-bold text-large">
+          {{ addCapitalFirstLetter(props.pokemon.name) }}
+        </h2>
+        <p class="text-normal text-grey">
+          Nr. {{ String(props.pokemon.id).padStart(3, "0") }}
+        </p>
+      </div>
+      <ul class="ml-auto flex flex-wrap gap-1 self-start text-[12px]">
+        <li
+          :class="typeColors[typeInfo.type.name as keyof {}]"
+          class="ml-[5px] rounded-xl px-[10px] py-[3px] text-white"
+          v-for="typeInfo in props.pokemon.types"
+          :key="typeInfo.slot"
+        >
+          {{ addCapitalFirstLetter(typeInfo.type.name) }}
+        </li>
+      </ul>
 
-    <img src="@/assets/icons/chevron-right.svg" alt="chevron-right" />
+      <img src="@/assets/icons/chevron-right.svg" alt="chevron-right" />
+    </router-link>
   </li>
 </template>

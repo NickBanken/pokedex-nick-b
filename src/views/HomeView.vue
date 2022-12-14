@@ -7,6 +7,7 @@ import ListComponentVue from "@/components/home/ListComponent.vue";
 
 import { storeToRefs } from "pinia";
 import { usePokemonStore } from "@/stores/PokemonStore";
+import FilterIcon from "@/assets/icons/filterIcon.vue";
 const pokemonStore = usePokemonStore();
 
 const { showOrder } = storeToRefs(pokemonStore);
@@ -15,9 +16,12 @@ watch(
   () => pokemonStore.showOrder,
   (newVal: boolean, _) => {
     if (newVal) {
-      document.documentElement.style.overflow = "hidden";
+      document.documentElement.style.overflowY = "scroll";
+      document.documentElement.style.position = "fixed";
+      document.documentElement.style.width = "100%";
     } else {
-      document.documentElement.style.overflow = "auto";
+      document.documentElement.style.overflowY = "auto";
+      document.documentElement.style.position = "static";
     }
   }
 );
@@ -26,8 +30,16 @@ watch(
 <template>
   <main
     :class="pokemonStore.showOrder ? 'overflow-y-hidden' : ''"
-    class="px-5 bg-app font-display"
+    class="p[0.5px] m-0 flex flex-col bg-app px-5 font-display"
   >
+    <button
+      @click="pokemonStore.toggleOrder"
+      title="filter"
+      type="button"
+      class="p-2 mt-5 ml-auto"
+    >
+      <filter-icon />
+    </button>
     <h1 class="font-display text-[34px] font-bold text-dark">Pokédex</h1>
     <input-component-vue />
     <list-component-vue />

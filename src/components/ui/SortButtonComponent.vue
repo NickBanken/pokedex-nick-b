@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 
-const props = defineProps(["icon"]);
+const props = defineProps(["icon", "desc"]);
 </script>
 
 <template>
@@ -9,6 +9,6 @@ const props = defineProps(["icon"]);
     class="my-[5.5px] flex items-center rounded-xl bg-light-grey p-3 hover:outline hover:outline-1 hover:outline-emerald-500 focus:outline focus:outline-1 focus:outline-emerald-500"
   >
     <img class="mr-2 inlin2" :src="icon" alt="num-down" />
-    <slot name="desc"></slot>
+    <p>{{ props.desc }}</p>
   </button>
 </template>

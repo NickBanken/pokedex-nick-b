@@ -19,7 +19,6 @@ const pokemonHandler = computed(() => {
 </script>
 
 <template>
-  <button @click="pokemonStore.toggleOrder">Sort</button>
   <transition-group name="list" v-if="pokemons" class="flex flex-col" tag="ul">
     <card-component-vue
       :key="pokemon.name"
