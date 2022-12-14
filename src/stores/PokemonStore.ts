@@ -22,18 +22,6 @@ export const usePokemonStore = defineStore("pokeStore", {
       this.pokemons = response.data;
     },
 
-    // orderPokemon() {
-    //   let arr: Pokemon[];
-
-    //   arr = [...this.pokemons].sort((a: Pokemon, b: Pokemon) => {
-    //     if (this.order === "DESC-AZ") return a.name < b.name ? 1 : -1;
-    //     else if (this.order === "ASC-NUM") return a.id > b.id ? 1 : -1;
-    //     else if (this.order === "DESC-NUM") return a.id < b.id ? 1 : -1;
-    //     else return a.name > b.name ? 1 : -1;
-    //   });
-
-    // },
-
     orderItems(arr: Pokemon[]) {
       return [...arr].sort((a: Pokemon, b: Pokemon) => {
         if (this.order === "DESC-AZ") return a.name < b.name ? 1 : -1;

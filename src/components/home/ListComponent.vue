@@ -19,14 +19,21 @@ const pokemonHandler = computed(() => {
 </script>
 
 <template>
-  <transition-group name="list" v-if="pokemons" class="flex flex-col" tag="ul">
+  <transition-group
+    name="list"
+    v-if="pokemons.length > 0"
+    class="flex flex-col"
+    tag="ul"
+  >
     <card-component-vue
       :key="pokemon.name"
       :pokemon="pokemon"
       v-for="pokemon in pokemonHandler"
     />
   </transition-group>
-  <h2 v-else>Sorry, we could not find any Pokemon with that value.</h2>
+  <h2 class="mt-20 text-xl text-center" v-else>
+    Sorry, we could not find any Pokemon with that value.
+  </h2>
 </template>
 
 <style scoped>
