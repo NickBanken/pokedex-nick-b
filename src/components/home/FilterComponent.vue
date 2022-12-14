@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { watch } from "vue";
-
 import ButtonComponentVue from "../ui/SortButtonComponent.vue";
 import roundClose from "@/assets/icons/roundClose.vue";
 import checkmark from "@/assets/icons/checkmark.vue";
 
-import { storeToRefs } from "pinia";
 import { usePokemonStore } from "@/stores/PokemonStore";
 const pokemonStore = usePokemonStore();
 
-// const { showOrder } = storeToRefs(pokemonStore);
+const sortList = () => {
+  pokemonStore.pokemons = pokemonStore.orderItems(pokemonStore.pokemons);
+};
 </script>
 
 <template>
@@ -58,7 +57,7 @@ const pokemonStore = usePokemonStore();
         </button-component-vue>
 
         <button
-          @click="pokemonStore.orderPokemon()"
+          @click="sortList"
           class="p-3 mt-5 mb-3 text-lg text-white rounded-3xl bg-zinc-900 font-text"
         >
           Toepassen

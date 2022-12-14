@@ -29,18 +29,17 @@ const addCapitalFirstLetter = (string: string) => {
     />
 
     <div class="ml-4">
-      <h2 class="text-large font-bold">
+      <h2 class="font-bold text-large">
         {{ addCapitalFirstLetter(props.pokemon.name) }}
       </h2>
       <p class="text-normal text-grey">
         Nr. {{ String(props.pokemon.id).padStart(3, "0") }}
       </p>
     </div>
-    <ul class="ml-auto flex self-start text-[12px]">
+    <ul class="ml-auto flex flex-wrap gap-1 self-start text-[12px]">
       <li
-      :class="typeColors[typeInfo.type.name]"
+        :class="typeColors[typeInfo.type.name as keyof {}]"
         class="ml-[5px] rounded-xl px-[10px] py-[3px] text-white"
-        
         v-for="typeInfo in props.pokemon.types"
         :key="typeInfo.slot"
       >
