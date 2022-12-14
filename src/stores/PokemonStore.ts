@@ -1,17 +1,23 @@
 import { defineStore } from "pinia";
-
 import axios from "axios";
 
 import type Pokemon from "@/types/pokemon";
-import type OrderTerm from "@/types/order";
+import type SinglePokemon from "@/types/singlePokemon";
 
+import type OrderTerm from "@/types/order";
 export const usePokemonStore = defineStore("pokeStore", {
   state: () => ({
     callPokemons: {} as Pokemon[],
     pokemons: {} as Pokemon[],
     order: "DESC-AZ" as OrderTerm,
     showOrder: false as boolean,
+    singlePokemon: {} as SinglePokemon,
   }),
+  getters: {
+    getSinglePokemon(state) {
+      return state.singlePokemon;
+    },
+  },
   actions: {
     async getPokemons() {
       const response = await axios<Pokemon[]>({
@@ -20,6 +26,15 @@ export const usePokemonStore = defineStore("pokeStore", {
       });
       this.callPokemons = response.data;
       this.pokemons = response.data;
+    },
+
+    async fetchSinglePokemon(id: string) {
+      const response = await axios<SinglePokemon>({
+        method: "get" as string,
+        url: `https://pokeapi.co/api/v2/pokemon/${id}` as string,
+      });
+      this.singlePokemon = response.data;
+      console.log(response.data);
     },
 
     orderItems(arr: Pokemon[]) {
