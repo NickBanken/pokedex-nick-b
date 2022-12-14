@@ -6,9 +6,9 @@ const props = defineProps(["icon"]);
 
 <template>
   <button
-    class="my-[5.5px] flex items-center rounded-xl bg-light-grey p-3 focus:outline focus:outline-1 focus:outline-emerald-500"
+    class="my-[5.5px] flex items-center rounded-xl bg-light-grey p-3 hover:outline hover:outline-1 hover:outline-emerald-500 focus:outline focus:outline-1 focus:outline-emerald-500"
   >
-    <img class="inlin2 mr-2" :src="icon" alt="num-down" />
+    <img class="mr-2 inlin2" :src="icon" alt="num-down" />
     <slot name="desc"></slot>
   </button>
 </template>

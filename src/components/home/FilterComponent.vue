@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { watch } from "vue";
+
 import ButtonComponentVue from "../ui/SortButtonComponent.vue";
+import roundClose from "@/assets/icons/roundClose.vue";
+import checkmark from "@/assets/icons/checkmark.vue";
 
 import { storeToRefs } from "pinia";
 import { usePokemonStore } from "@/stores/PokemonStore";
@@ -11,9 +15,18 @@ const pokemonStore = usePokemonStore();
 <template>
   <div>
     <div
-      class="fixed bottom-0 z-10 flex flex-col w-full px-5 bg-white rounded-t-2xl font-display"
+      class="fixed bottom-0 z-10 flex flex-col w-full max-h-screen px-5 overflow-y-auto bg-white rounded-t-2xl font-display"
     >
-      <h2 class="py-4 text-lg font-bold">Sorteren op</h2>
+      <div class="flex">
+        <h2 class="py-4 text-lg font-bold">Sorteren op</h2>
+
+        <button
+          @click="pokemonStore.toggleOrder"
+          class="self-center ml-auto rounded-full w-fit"
+        >
+          <round-close class="hover:fill-slate-400"></round-close>
+        </button>
+      </div>
 
       <div class="flex flex-col">
         <button-component-vue
