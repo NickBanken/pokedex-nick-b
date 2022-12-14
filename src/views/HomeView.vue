@@ -29,7 +29,6 @@ watch(
 
 <template>
   <main
-    :class="pokemonStore.showOrder ? 'overflow-y-hidden' : ''"
     class="p[0.5px] m-0 flex min-h-screen flex-col bg-app px-5 font-display"
   >
     <button

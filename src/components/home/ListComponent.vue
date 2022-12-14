@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { onBeforeMount, computed } from "vue";
 import { storeToRefs } from "pinia";
 
 import CardComponentVue from "./CardComponent.vue";
@@ -9,7 +9,7 @@ const pokemonStore = usePokemonStore();
 
 const { pokemons } = storeToRefs(pokemonStore);
 
-onMounted(() => {
+onBeforeMount(() => {
   pokemonStore.getPokemons();
 });
 

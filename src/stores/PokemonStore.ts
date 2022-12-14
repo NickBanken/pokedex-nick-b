@@ -34,7 +34,6 @@ export const usePokemonStore = defineStore("pokeStore", {
         url: `https://pokeapi.co/api/v2/pokemon/${id}` as string,
       });
       this.singlePokemon = response.data;
-      console.log(response.data);
     },
 
     orderItems(arr: Pokemon[]) {
