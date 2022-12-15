@@ -19,9 +19,7 @@ const pokemonStore = usePokemonStore();
 const { singlePokemon } = storeToRefs(pokemonStore);
 
 onBeforeMount(() => {
-  pokemonStore.singlePokemon = pokemonStore.fetchSinglePokemon(
-    route.params.id as string
-  );
+  pokemonStore.fetchSinglePokemon(route.params.id as string);
 });
 
 const getSinglePokemon = computed(() => {
