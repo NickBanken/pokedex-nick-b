@@ -4,10 +4,13 @@ import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 
 import heart from "@/assets/icons/heart.vue";
+import heartFull from "@/assets/icons/heartFull.vue";
 import chevronLeft from "@/assets/icons/chevron-left.vue";
 
 import DetailPanel from "@/components/ui/DetailPanel.vue";
 import DetailComponent from "@/components/details/DetailComponent.vue";
+
+import { addCapitalFirstLetter } from "@/utils/utils";
 
 import type SinglePokemon from "@/types/singlePokemon";
 
@@ -29,7 +32,7 @@ const getSinglePokemon = computed(() => {
 
 <template>
   <main
-    v-show="singlePokemon"
+    v-if="singlePokemon"
     class="p[0.5px] m-0 flex min-h-screen flex-col bg-green-400 px-5 font-display"
   >
     <nav class="flex justify-between mt-5">
@@ -41,26 +44,32 @@ const getSinglePokemon = computed(() => {
       >
       <button>
         <heart />
+        <heartFull />
       </button>
     </nav>
 
     <h2 class="mb-8 text-[34px] font-bold text-white">
-      {{ getSinglePokemon.name }}
+      {{ addCapitalFirstLetter(getSinglePokemon?.name) }}
     </h2>
 
     <div>
       <img
-        :src="getSinglePokemon.sprites?.other['official-artwork'].front_default"
-        alt=""
+        loading="lazy"
+        :src="
+          getSinglePokemon?.sprites?.other['official-artwork'].front_default
+        "
+        :alt="getSinglePokemon?.name"
         class="block m-auto mb-10 w-60"
       />
     </div>
 
-    <DetailPanel>
-      <template v-slot:title>About</template>
-      <template v-slot:content>
-        <DetailComponent />
-      </template>
-    </DetailPanel>
+    <section class="flex flex-col items-center">
+      <DetailPanel>
+        <template v-slot:title>About</template>
+        <template v-slot:content>
+          <DetailComponent :getPokemon="getSinglePokemon" />
+        </template>
+      </DetailPanel>
+    </section>
   </main>
 </template>

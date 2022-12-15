@@ -19,29 +19,45 @@ const pokemonHandler = computed(() => {
 </script>
 
 <template>
-  <transition-group
-    name="list"
+  <transition
+    name="fade"
     v-if="pokemons.length > 0"
     class="flex flex-col"
     tag="ul"
+    appear
   >
-    <card-component-vue
-      :key="pokemon.name"
-      :pokemon="pokemon"
-      v-for="pokemon in pokemonHandler"
-    />
-  </transition-group>
+    <transition-group name="list">
+      <card-component-vue
+        :key="pokemon.name"
+        :pokemon="pokemon"
+        v-for="pokemon in pokemonHandler"
+      />
+    </transition-group>
+  </transition>
   <h2 class="mt-20 text-xl text-center" v-else>
     Sorry, we could not find any Pokemon with that value.
   </h2>
 </template>
 
 <style scoped>
-.list-move, /* apply transition to moving elements */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.list-move,
+.list-enter-to
+ /* apply transition to moving elements */
 .list-enter-active {
   transition: all 0.5s ease;
 }
 
+.list-enter,
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
@@ -55,3 +71,17 @@ const pokemonHandler = computed(() => {
   position: absolute;
 }
 </style>
+
+<!-- <style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+</style> -->

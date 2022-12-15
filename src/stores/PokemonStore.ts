@@ -9,9 +9,9 @@ export const usePokemonStore = defineStore("pokeStore", {
   state: () => ({
     callPokemons: {} as Pokemon[],
     pokemons: {} as Pokemon[],
-    order: "DESC-AZ" as OrderTerm,
+    order: "ASC-NUM" as OrderTerm,
     showOrder: false as boolean,
-    singlePokemon: {} as SinglePokemon,
+    singlePokemon: {} as SinglePokemon | undefined,
   }),
   getters: {
     getSinglePokemon(state) {
@@ -29,6 +29,7 @@ export const usePokemonStore = defineStore("pokeStore", {
     },
 
     async fetchSinglePokemon(id: string) {
+      this.singlePokemon = undefined;
       const response = await axios<SinglePokemon>({
         method: "get" as string,
         url: `https://pokeapi.co/api/v2/pokemon/${id}` as string,
