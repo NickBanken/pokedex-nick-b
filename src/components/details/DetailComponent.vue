@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import TypeLabel from "../ui/TypeLabel.vue";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
 
 const { getPokemon } = defineProps(["getPokemon"]);
-
-console.log(getPokemon);
 </script>
 
 <template>

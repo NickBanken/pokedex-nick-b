@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeMount, computed } from "vue";
+import { onMounted, onBeforeMount, computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 
@@ -12,21 +12,73 @@ import DetailComponent from "@/components/details/DetailComponent.vue";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
 
-import type SinglePokemon from "@/types/singlePokemon";
-
 import { usePokemonStore } from "@/stores/PokemonStore";
 
 const route = useRoute();
+
 const pokemonStore = usePokemonStore();
 
 const { singlePokemon } = storeToRefs(pokemonStore);
+
+let favourite = ref(false);
 
 onBeforeMount(() => {
   pokemonStore.fetchSinglePokemon(route.params.id as string);
 });
 
+const checkIfFavourite = () => {
+  let arr = JSON.parse(localStorage.getItem("favourite-pokdex-nick") || "[]");
+  if (arr.includes(getSinglePokemon.value?.id)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const getSinglePokemon = computed(() => {
   return pokemonStore.getSinglePokemon;
+});
+
+const toggleFavourite = () => {
+  console.log("hit");
+  favourite.value = !favourite.value;
+};
+
+watch(getSinglePokemon, () => {
+  favourite.value = checkIfFavourite();
+});
+
+watch(favourite, (val) => {
+  switch (val) {
+    case true:
+      console.log("save");
+      if (!localStorage.getItem("favourite-pokdex-nick")) {
+        let arr = [];
+        arr.push(getSinglePokemon.value?.id);
+        localStorage.setItem("favourite-pokdex-nick", JSON.stringify(arr));
+        return;
+      }
+
+      let arr = JSON.parse(localStorage.getItem("favourite-pokdex-nick")!);
+      if (!arr.includes(getSinglePokemon.value?.id)) {
+        arr.push(getSinglePokemon.value?.id);
+        localStorage.setItem("favourite-pokdex-nick", JSON.stringify(arr));
+      }
+      break;
+
+    case false:
+      console.log("remove");
+
+      if (localStorage.getItem("favourite-pokdex-nick")) {
+        let arr = JSON.parse(localStorage.getItem("favourite-pokdex-nick")!);
+        d;
+        arr = arr.filter((val: number) => {
+          return val != getSinglePokemon.value?.id;
+        });
+        localStorage.setItem("favourite-pokdex-nick", JSON.stringify(arr));
+      }
+      break;
+  }
 });
 </script>
 
@@ -42,9 +94,9 @@ const getSinglePokemon = computed(() => {
       >
         <chevronLeft class="mr-1" /> Terug</router-link
       >
-      <button>
-        <heart />
-        <heartFull />
+      <button @click="toggleFavourite">
+        <heart v-if="!favourite" />
+        <heartFull v-if="favourite" />
       </button>
     </nav>
 
