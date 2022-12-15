@@ -3,12 +3,14 @@ import axios from "axios";
 
 import type Pokemon from "@/types/pokemon";
 import type SinglePokemon from "@/types/singlePokemon";
-
 import type OrderTerm from "@/types/order";
+
+import { getLocalStorage } from "@/utils/localStorage";
+
 export const usePokemonStore = defineStore("pokeStore", {
   state: () => ({
-    callPokemons: {} as Pokemon[],
-    pokemons: {} as Pokemon[],
+    callPokemons: [] as Pokemon[],
+    pokemons: [] as Pokemon[],
     order: "ASC-NUM" as OrderTerm,
     showOrder: false as boolean,
     singlePokemon: {} as SinglePokemon | undefined,
@@ -19,6 +21,15 @@ export const usePokemonStore = defineStore("pokeStore", {
     },
   },
   actions: {
+    async getListedPokemons(localKey: string) {
+      const list = getLocalStorage(localKey);
+      let arr: Array<Object>;
+
+      list.forEach((element: Number) => {
+        let result = this.pokemons.filter((el) => el.id == element);
+        arr.push(result);
+      });
+    },
     async getPokemons() {
       const response = await axios<Pokemon[]>({
         method: "get" as string,

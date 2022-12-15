@@ -5,9 +5,12 @@ import FilterComponent from "@/components/home/FilterComponent.vue";
 import InputComponentVue from "@/components/home/InputComponent.vue";
 import ListComponentVue from "@/components/home/ListComponent.vue";
 
+import { favouriteKey } from "@/utils/localStorage";
+
 import { storeToRefs } from "pinia";
 import { usePokemonStore } from "@/stores/PokemonStore";
 import FilterIcon from "@/assets/icons/filterIcon.vue";
+import CardCounter from "@/components/ui/CardCounter.vue";
 const pokemonStore = usePokemonStore();
 
 const { showOrder } = storeToRefs(pokemonStore);
@@ -41,7 +44,25 @@ watch(
     </button>
     <h1 class="font-display text-[34px] font-bold text-dark">Pokédex</h1>
     <input-component-vue />
-    <list-component-vue />
+
+    <section class="grid grid-cols-2 gap-2 mb-5">
+      <CardCounter
+        :title="'Mijn team'"
+        :localKey="'team-pokedex-nick'"
+        :color="'bg-[#7E32E0]'"
+      ></CardCounter>
+      <router-link to="/favourite">
+        <CardCounter
+          :title="'Favorieten'"
+          :localKey="favouriteKey"
+          :color="'bg-[#65CB9A]'"
+        ></CardCounter>
+      </router-link>
+    </section>
+
+    <section>
+      <list-component-vue class="mb-5" />
+    </section>
   </main>
   <transition name="fade">
     <filter-component v-if="showOrder" />
