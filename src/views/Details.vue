@@ -71,7 +71,7 @@ watch(favourite, (val) => {
 
       if (localStorage.getItem("favourite-pokdex-nick")) {
         let arr = JSON.parse(localStorage.getItem("favourite-pokdex-nick")!);
-        d;
+
         arr = arr.filter((val: number) => {
           return val != getSinglePokemon.value?.id;
         });

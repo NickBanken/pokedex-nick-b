@@ -19,7 +19,7 @@ const searchInput = ref("");
       @input="pokemonStore.searchPokemons(searchInput)"
       v-model="searchInput"
       type="text"
-      class="bg-transparent font-text placeholder-dark-grey focus-visible:outline-none"
+      class="w-full bg-transparent font-text placeholder-dark-grey focus-visible:outline-none"
       placeholder="Pokemon zoeken"
     />
   </div>
