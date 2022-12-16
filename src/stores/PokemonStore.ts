@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+import { toRaw } from "vue";
+
 import type Pokemon from "@/types/pokemon";
 import type SinglePokemon from "@/types/singlePokemon";
 import type OrderTerm from "@/types/order";
 
-import { getLocalStorage } from "@/utils/localStorage";
+// import { getLocalStorage } from "@/utils/localStorage";
 
 export const usePokemonStore = defineStore("pokeStore", {
   state: () => ({
@@ -14,6 +16,8 @@ export const usePokemonStore = defineStore("pokeStore", {
     order: "ASC-NUM" as OrderTerm,
     showOrder: false as boolean,
     singlePokemon: {} as SinglePokemon | undefined,
+    localKeyFavourite: "favourite-pokedex-wisemen" as string,
+    localKeyTeam: "team-pokedex-wisemen" as string,
   }),
   getters: {
     getSinglePokemon(state) {
@@ -22,7 +26,7 @@ export const usePokemonStore = defineStore("pokeStore", {
   },
   actions: {
     async getListedPokemons(localKey: string) {
-      const list = getLocalStorage(localKey);
+      const list = this.getLocalStorage(localKey);
       let arr: Array<Object>;
 
       list.forEach((element: Number) => {
@@ -82,6 +86,67 @@ export const usePokemonStore = defineStore("pokeStore", {
 
     setOrder(order: OrderTerm) {
       this.order = order;
+    },
+
+    checkIfFavourite(item: SinglePokemon | undefined) {
+      let arr = JSON.parse(
+        localStorage.getItem(this.localKeyFavourite) || "[]"
+      );
+
+      if (arr.some((e: SinglePokemon) => e.id === item?.id)) {
+        return true;
+      }
+
+      return false;
+    },
+    getLocalStorage(key: string) {
+      return JSON.parse(localStorage.getItem(key)!);
+    },
+    handleFavourite(val: boolean, item: SinglePokemon | undefined) {
+      switch (val) {
+        case true:
+          console.log("add");
+
+          if (!localStorage.getItem(this.localKeyFavourite)) {
+            let arr = [];
+            arr.push(item);
+            localStorage.setItem(this.localKeyFavourite, JSON.stringify(arr));
+            return;
+          }
+
+          let arr = JSON.parse(localStorage.getItem(this.localKeyFavourite)!);
+          if (!arr.some((e: SinglePokemon) => e.id === item?.id)) {
+            console.log("go");
+            arr.push(item);
+            localStorage.setItem(this.localKeyFavourite, JSON.stringify(arr));
+          }
+          break;
+
+        case false:
+          console.log("remove");
+
+          if (localStorage.getItem(this.localKeyFavourite)) {
+            let arr = JSON.parse(localStorage.getItem(this.localKeyFavourite)!);
+            console.log(item?.id);
+
+            arr = arr.filter((val: SinglePokemon) => {
+              console.log("This aint runnin?");
+              return val.id != item?.id;
+            });
+
+            localStorage.setItem(this.localKeyFavourite, JSON.stringify(arr));
+          }
+          break;
+      }
+    },
+    countTotal(title: string) {
+      if (!localStorage.getItem(title)) {
+        return 0;
+      }
+
+      let arr = JSON.parse(localStorage.getItem(title)!);
+
+      return arr.length;
     },
   },
 });

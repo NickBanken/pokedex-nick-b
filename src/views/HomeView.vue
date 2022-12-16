@@ -5,8 +5,6 @@ import FilterComponent from "@/components/home/FilterComponent.vue";
 import InputComponentVue from "@/components/home/InputComponent.vue";
 import ListComponentVue from "@/components/home/ListComponent.vue";
 
-import { favouriteKey } from "@/utils/localStorage";
-
 import { storeToRefs } from "pinia";
 import { usePokemonStore } from "@/stores/PokemonStore";
 import FilterIcon from "@/assets/icons/filterIcon.vue";
@@ -54,7 +52,7 @@ watch(
       <router-link to="/favourite">
         <CardCounter
           :title="'Favorieten'"
-          :localKey="favouriteKey"
+          :localKey="pokemonStore.localKeyFavourite"
           :color="'bg-[#65CB9A]'"
         ></CardCounter>
       </router-link>

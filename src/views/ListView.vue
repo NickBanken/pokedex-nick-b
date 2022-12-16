@@ -1,21 +1,25 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import type { Ref } from "vue";
 import { usePokemonStore } from "@/stores/PokemonStore";
-import { favouriteKey } from "@/utils/localStorage";
+import { storeToRefs } from "pinia";
 
-import { onBeforeMount, watch } from "vue";
+import { onBeforeMount } from "vue";
+import type singlePokemon from "@/types/singlePokemon";
 
 const pokemonStore = usePokemonStore();
-
-console.log(pokemonStore.getListedPokemons(favouriteKey));
-console.log();
+const { localKeyFavourite } = storeToRefs(pokemonStore);
+let listedPokemon: Ref<singlePokemon[]> = ref([]);
 
 onBeforeMount(async () => {
-  if (pokemonStore.pokemons.length === 0) {
-    pokemonStore.getPokemons();
-  }
+  listedPokemon = pokemonStore.getLocalStorage(localKeyFavourite.value);
 });
 </script>
 
 <template>
-  <p>lol</p>
+  <ul v-for="pokemon in listedPokemon">
+    {{
+      pokemon.name
+    }}
+  </ul>
 </template>

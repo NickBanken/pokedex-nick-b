@@ -11,7 +11,6 @@ import DetailComponent from "@/components/details/DetailComponent.vue";
 import Navigation from "@/components/ui/Navigation.vue";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
-import { checkIfFavourite, handleFavourite } from "@/utils/localStorage";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
 
@@ -35,12 +34,13 @@ const toggleFavourite = () => {
   favourite.value = !favourite.value;
 };
 
-watch(getSinglePokemon, () => {
-  favourite.value = checkIfFavourite(getSinglePokemon.value?.id);
+watch(singlePokemon, () => {
+  console.log(getSinglePokemon.value);
+  favourite.value = pokemonStore.checkIfFavourite(getSinglePokemon.value);
 });
 
 watch(favourite, (val) => {
-  handleFavourite(val, getSinglePokemon.value?.id);
+  pokemonStore.handleFavourite(val, getSinglePokemon.value);
 });
 </script>
 
