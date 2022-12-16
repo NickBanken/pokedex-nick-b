@@ -9,6 +9,7 @@ import heartFull from "@/assets/icons/heartFull.vue";
 import DetailPanel from "@/components/ui/DetailPanel.vue";
 import DetailComponent from "@/components/details/DetailComponent.vue";
 import Navigation from "@/components/ui/Navigation.vue";
+import LightBox from "../components/ui/LightBox.vue";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
 
@@ -73,14 +74,20 @@ watch(team, (val) => {
     </h2>
 
     <div>
-      <img
-        loading="lazy"
-        :src="
+      <LightBox
+        :img="
           getSinglePokemon?.sprites?.other['official-artwork'].front_default
         "
-        :alt="getSinglePokemon?.name"
         class="block m-auto mb-10 w-60"
-      />
+      >
+        <img
+          loading="lazy"
+          :src="
+            getSinglePokemon?.sprites?.other['official-artwork'].front_default
+          "
+          :alt="getSinglePokemon?.name"
+        />
+      </LightBox>
     </div>
 
     <section class="flex flex-col items-center">
