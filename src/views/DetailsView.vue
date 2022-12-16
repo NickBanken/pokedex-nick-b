@@ -21,6 +21,7 @@ const pokemonStore = usePokemonStore();
 const { singlePokemon } = storeToRefs(pokemonStore);
 
 let favourite = ref(false);
+let team = ref(false);
 
 onBeforeMount(() => {
   pokemonStore.fetchSinglePokemon(route.params.id as string);
@@ -34,20 +35,31 @@ const toggleFavourite = () => {
   favourite.value = !favourite.value;
 };
 
+const toggleTeam = () => {
+  team.value = !team.value;
+};
+
 watch(singlePokemon, () => {
-  console.log(getSinglePokemon.value);
-  favourite.value = pokemonStore.checkIfFavourite(getSinglePokemon.value);
+  favourite.value = pokemonStore.checkIfListed(
+    getSinglePokemon.value,
+    "favourite"
+  );
+  team.value = pokemonStore.checkIfListed(getSinglePokemon.value, "team");
 });
 
 watch(favourite, (val) => {
-  pokemonStore.handleFavourite(val, getSinglePokemon.value);
+  pokemonStore.handleToList(val, getSinglePokemon.value, "favourite");
+});
+
+watch(team, (val) => {
+  pokemonStore.handleToList(val, getSinglePokemon.value, "team");
 });
 </script>
 
 <template>
   <main
     v-if="singlePokemon"
-    class="p[0.5px] m-0 flex min-h-screen flex-col bg-green-400 px-5 font-display"
+    class="p[0.5px] m-0 flex min-h-screen flex-col bg-green-400 px-5 pb-32 font-display"
   >
     <Navigation>
       <template v-slot:favourite>
@@ -73,11 +85,25 @@ watch(favourite, (val) => {
 
     <section class="flex flex-col items-center">
       <DetailPanel>
-        <template v-slot:title>About</template>
+        <template v-slot:title>INFO</template>
+        <template v-slot:content>
+          <DetailComponent :getPokemon="getSinglePokemon" />
+        </template>
+      </DetailPanel>
+
+      <DetailPanel>
+        <template v-slot:title>STATISTIEKEN</template>
         <template v-slot:content>
           <DetailComponent :getPokemon="getSinglePokemon" />
         </template>
       </DetailPanel>
     </section>
+
+    <button
+      @click="toggleTeam"
+      class="box-border fixed block px-20 py-3 font-bold text-white rounded-full bottom-10 left-2/4 w-max -translate-x-2/4 bg-dark"
+    >
+      {{ team ? "Verwijderen van mijn team" : "Toevoegen aan mijn team" }}
+    </button>
   </main>
 </template>

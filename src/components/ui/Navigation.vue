@@ -4,13 +4,13 @@ import chevronLeft from "@/assets/icons/chevron-left.vue";
 
 <template>
   <nav class="flex justify-between mt-5">
-    <router-link
+    <a
       class="flex font-light tracking-wider text-white font-text"
-      to="/"
+      @click="$router.go(-1)"
     >
       <chevronLeft class="mr-1" />
       Terug
-    </router-link>
+    </a>
 
     <!--If the developer want's to add the favourite button-->
     <slot name="favourite"></slot>

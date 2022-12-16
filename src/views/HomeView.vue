@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { watch } from "vue";
+import { watch, onBeforeMount } from "vue";
 
 import FilterComponent from "@/components/home/FilterComponent.vue";
 import InputComponentVue from "@/components/home/InputComponent.vue";
-import ListComponentVue from "@/components/home/ListComponent.vue";
+import ListComponent from "@/components/ui/ListComponent.vue";
 
 import { storeToRefs } from "pinia";
 import { usePokemonStore } from "@/stores/PokemonStore";
@@ -12,6 +12,10 @@ import CardCounter from "@/components/ui/CardCounter.vue";
 const pokemonStore = usePokemonStore();
 
 const { showOrder } = storeToRefs(pokemonStore);
+
+onBeforeMount(() => {
+  pokemonStore.fetchPokemons();
+});
 
 watch(
   () => pokemonStore.showOrder,
@@ -44,22 +48,26 @@ watch(
     <input-component-vue />
 
     <section class="grid grid-cols-2 gap-2 mb-5">
-      <CardCounter
-        :title="'Mijn team'"
-        :localKey="'team-pokedex-nick'"
-        :color="'bg-[#7E32E0]'"
-      ></CardCounter>
-      <router-link to="/favourite">
+      <router-link :to="'/list/' + 'team'">
+        <CardCounter
+          :title="'Mijn team'"
+          :mode="'team'"
+          :color="'bg-[#7E32E0]'"
+        ></CardCounter>
+      </router-link>
+
+      <router-link :to="'/list/' + 'favourites'">
         <CardCounter
           :title="'Favorieten'"
-          :localKey="pokemonStore.localKeyFavourite"
+          :mode="'favourite'"
           :color="'bg-[#65CB9A]'"
         ></CardCounter>
       </router-link>
     </section>
 
     <section>
-      <list-component-vue class="mb-5" />
+      <!-- <list-component-vue class="mb-5" /> -->
+      <ListComponent :pokemons="pokemonStore.getAllPokemons" />
     </section>
   </main>
   <transition name="fade">

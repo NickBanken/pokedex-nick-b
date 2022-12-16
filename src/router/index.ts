@@ -16,8 +16,8 @@ const router = createRouter({
       component: () => import("../views/DetailsView.vue"),
     },
     {
-      path: "/favourite",
-      name: "favourite",
+      path: "/list/:mode",
+      name: "list",
       props: true,
       component: () => import("../views/ListView.vue"),
     },

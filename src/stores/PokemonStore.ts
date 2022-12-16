@@ -23,6 +23,9 @@ export const usePokemonStore = defineStore("pokeStore", {
     getSinglePokemon(state) {
       return state.singlePokemon;
     },
+    getAllPokemons(state) {
+      return state.pokemons;
+    },
   },
   actions: {
     async getListedPokemons(localKey: string) {
@@ -34,7 +37,7 @@ export const usePokemonStore = defineStore("pokeStore", {
         arr.push(result);
       });
     },
-    async getPokemons() {
+    async fetchPokemons() {
       const response = await axios<Pokemon[]>({
         method: "get" as string,
         url: "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon" as string,
@@ -88,10 +91,15 @@ export const usePokemonStore = defineStore("pokeStore", {
       this.order = order;
     },
 
-    checkIfFavourite(item: SinglePokemon | undefined) {
-      let arr = JSON.parse(
-        localStorage.getItem(this.localKeyFavourite) || "[]"
-      );
+    checkIfListed(item: SinglePokemon | undefined, mode: string) {
+      let key: string;
+      if (mode === "favourite") {
+        key = this.localKeyFavourite;
+      } else {
+        key = this.localKeyTeam;
+      }
+
+      let arr = JSON.parse(localStorage.getItem(key) || "[]");
 
       if (arr.some((e: SinglePokemon) => e.id === item?.id)) {
         return true;
@@ -102,31 +110,34 @@ export const usePokemonStore = defineStore("pokeStore", {
     getLocalStorage(key: string) {
       return JSON.parse(localStorage.getItem(key)!);
     },
-    handleFavourite(val: boolean, item: SinglePokemon | undefined) {
+    handleToList(val: boolean, item: SinglePokemon | undefined, mode: string) {
+      let key: string;
+      if (mode === "favourite") {
+        key = this.localKeyFavourite;
+      } else {
+        key = this.localKeyTeam;
+      }
       switch (val) {
         case true:
-          console.log("add");
-
-          if (!localStorage.getItem(this.localKeyFavourite)) {
+          if (!localStorage.getItem(key)) {
             let arr = [];
             arr.push(item);
-            localStorage.setItem(this.localKeyFavourite, JSON.stringify(arr));
+            localStorage.setItem(key, JSON.stringify(arr));
             return;
           }
 
-          let arr = JSON.parse(localStorage.getItem(this.localKeyFavourite)!);
+          let arr = JSON.parse(localStorage.getItem(key)!);
           if (!arr.some((e: SinglePokemon) => e.id === item?.id)) {
-            console.log("go");
             arr.push(item);
-            localStorage.setItem(this.localKeyFavourite, JSON.stringify(arr));
+            localStorage.setItem(key, JSON.stringify(arr));
           }
           break;
 
         case false:
           console.log("remove");
 
-          if (localStorage.getItem(this.localKeyFavourite)) {
-            let arr = JSON.parse(localStorage.getItem(this.localKeyFavourite)!);
+          if (localStorage.getItem(key)) {
+            let arr = JSON.parse(localStorage.getItem(key)!);
             console.log(item?.id);
 
             arr = arr.filter((val: SinglePokemon) => {
@@ -134,17 +145,24 @@ export const usePokemonStore = defineStore("pokeStore", {
               return val.id != item?.id;
             });
 
-            localStorage.setItem(this.localKeyFavourite, JSON.stringify(arr));
+            localStorage.setItem(key, JSON.stringify(arr));
           }
           break;
       }
     },
-    countTotal(title: string) {
-      if (!localStorage.getItem(title)) {
+    countTotal(mode: string) {
+      let key: string;
+      if (mode === "favourite") {
+        key = this.localKeyFavourite;
+      } else {
+        key = this.localKeyTeam;
+      }
+
+      if (!localStorage.getItem(key)) {
         return 0;
       }
 
-      let arr = JSON.parse(localStorage.getItem(title)!);
+      let arr = JSON.parse(localStorage.getItem(key)!);
 
       return arr.length;
     },
