@@ -35,6 +35,9 @@ module.exports = {
         large: "17px",
         normal: "15px",
       },
+      gridTemplateColumns: {
+        responsive: "repeat(auto-fit, minmax(250px, 1fr))",
+      },
     },
   },
   plugins: [],

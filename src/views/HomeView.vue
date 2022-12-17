@@ -36,39 +36,41 @@ watch(
   <main
     class="p[0.5px] m-0 flex min-h-screen flex-col bg-app px-5 font-display"
   >
-    <button
-      @click="pokemonStore.toggleOrder"
-      title="filter"
-      type="button"
-      class="p-2 mt-5 ml-auto"
-    >
-      <filter-icon />
-    </button>
-    <h1 class="font-display text-[34px] font-bold text-dark">Pokédex</h1>
-    <input-component-vue />
+    <div class="mx-auto w-full max-w-[900px]">
+      <button
+        @click="pokemonStore.toggleOrder"
+        title="filter"
+        type="button"
+        class="p-2 mt-5 ml-auto"
+      >
+        <filter-icon />
+      </button>
+      <h1 class="font-display text-[34px] font-bold text-dark">Pokédex</h1>
+      <input-component-vue />
 
-    <section class="grid grid-cols-2 gap-2 mb-5">
-      <router-link :to="'/list/' + 'team'">
-        <CardCounter
-          :title="'Mijn team'"
-          :mode="'team'"
-          :color="'bg-[#7E32E0]'"
-        ></CardCounter>
-      </router-link>
+      <section class="grid grid-cols-2 gap-2 mb-5">
+        <router-link :to="'/list/' + 'team'">
+          <CardCounter
+            :title="'Mijn team'"
+            :mode="'team'"
+            :color="'bg-[#7E32E0]'"
+          ></CardCounter>
+        </router-link>
 
-      <router-link :to="'/list/' + 'favourites'">
-        <CardCounter
-          :title="'Favorieten'"
-          :mode="'favourite'"
-          :color="'bg-[#65CB9A]'"
-        ></CardCounter>
-      </router-link>
-    </section>
+        <router-link :to="'/list/' + 'favourites'">
+          <CardCounter
+            :title="'Favorieten'"
+            :mode="'favourite'"
+            :color="'bg-[#65CB9A]'"
+          ></CardCounter>
+        </router-link>
+      </section>
 
-    <section>
-      <!-- <list-component-vue class="mb-5" /> -->
-      <ListComponent :pokemons="pokemonStore.getAllPokemons" />
-    </section>
+      <section>
+        <!-- <list-component-vue class="mb-5" /> -->
+        <ListComponent :pokemons="pokemonStore.getAllPokemons" />
+      </section>
+    </div>
   </main>
   <transition name="fade">
     <filter-component v-if="showOrder" />

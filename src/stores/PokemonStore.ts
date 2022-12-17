@@ -20,9 +20,6 @@ export const usePokemonStore = defineStore("pokeStore", {
     localKeyTeam: "team-pokedex-wisemen" as string,
   }),
   getters: {
-    getSinglePokemon(state) {
-      return state.singlePokemon;
-    },
     getAllPokemons(state) {
       return state.pokemons;
     },
@@ -134,14 +131,11 @@ export const usePokemonStore = defineStore("pokeStore", {
           break;
 
         case false:
-          console.log("remove");
-
           if (localStorage.getItem(key)) {
             let arr = JSON.parse(localStorage.getItem(key)!);
             console.log(item?.id);
 
             arr = arr.filter((val: SinglePokemon) => {
-              console.log("This aint runnin?");
               return val.id != item?.id;
             });
 

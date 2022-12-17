@@ -1,5 +1,5 @@
 <template>
-  <article class="mb-6 w-full max-w-[335px]">
+  <article class="mb-6 w-full max-w-[400px] justify-self-center">
     <h3 class="mb-[10px] font-text text-[12px] font-bold text-white">
       <slot name="title"></slot>
     </h3>

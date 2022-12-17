@@ -8,7 +8,13 @@ const { pokemons } = defineProps(["pokemons"]);
 </script>
 
 <template>
-  <transition name="fade" v-if="pokemons" class="flex flex-col" tag="ul" appear>
+  <transition
+    name="fade"
+    v-if="pokemons"
+    class="grid gap-5 grid-cols-responsive"
+    tag="ul"
+    appear
+  >
     <transition-group name="list">
       <card-component-vue
         :key="pokemon.name"

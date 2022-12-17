@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <button @click="showSingle">
-      <slot></slot>
-    </button>
+  <button @click="showSingle">
+    <slot></slot>
+  </button>
 
-    <vue-easy-lightbox
-      :visible="visibleRef"
-      :imgs="imgsRef"
-      :index="indexRef"
-      @hide="onHide"
-    ></vue-easy-lightbox>
-  </div>
+  <vue-easy-lightbox
+    :visible="visibleRef"
+    :imgs="imgsRef"
+    :index="indexRef"
+    @hide="onHide"
+  ></vue-easy-lightbox>
 </template>
 
 <script setup lang="ts">

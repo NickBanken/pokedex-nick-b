@@ -5,7 +5,7 @@ import chevronLeft from "@/assets/icons/chevron-left.vue";
 <template>
   <nav class="flex justify-between mt-5">
     <a
-      class="flex font-light tracking-wider text-white font-text"
+      class="flex font-light tracking-wider text-white cursor-pointer font-text"
       @click="$router.go(-1)"
     >
       <chevronLeft class="mr-1" />
