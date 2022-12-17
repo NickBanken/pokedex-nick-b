@@ -41,7 +41,7 @@ watch(
         @click="pokemonStore.toggleOrder"
         title="filter"
         type="button"
-        class="p-2 mt-5 ml-auto"
+        class="block p-2 mt-5 ml-auto"
       >
         <filter-icon />
       </button>
@@ -66,7 +66,7 @@ watch(
         </router-link>
       </section>
 
-      <section>
+      <section class="mb-20">
         <!-- <list-component-vue class="mb-5" /> -->
         <ListComponent :pokemons="pokemonStore.getAllPokemons" />
       </section>
