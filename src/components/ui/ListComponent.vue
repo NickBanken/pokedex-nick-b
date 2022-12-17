@@ -11,7 +11,7 @@ const { pokemons } = defineProps(["pokemons"]);
   <transition
     name="fade"
     v-if="pokemons"
-    class="grid gap-5 grid-cols-responsive"
+    class="grid gap-5 sm:grid-cols-cards"
     tag="ul"
     appear
   >

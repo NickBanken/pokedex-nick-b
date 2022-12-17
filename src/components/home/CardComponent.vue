@@ -17,7 +17,7 @@ const { pokemon } = defineProps({
 </script>
 
 <template>
-  <li>
+  <li class="w-full max-w-[470px] justify-self-center">
     <router-link
       :to="'/details/' + pokemon.id"
       class="my-[5px] flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] drop-shadow-lg"

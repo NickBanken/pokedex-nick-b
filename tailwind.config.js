@@ -37,6 +37,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         responsive: "repeat(auto-fit, minmax(250px, 1fr))",
+        cards: "repeat(auto-fit, minmax(335px, 1fr))",
       },
     },
   },
