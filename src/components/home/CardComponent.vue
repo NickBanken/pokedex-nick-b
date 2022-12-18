@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import type { PropType } from "vue";
+
+import { useMotion } from "@vueuse/motion";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
 
@@ -19,10 +21,24 @@ const { pokemon } = defineProps({
     type: Boolean,
   },
 });
+
+const target = ref();
+
+useMotion(target, {
+  initial: {
+    opacity: 0,
+    y: 100,
+  },
+  visibleOnce: {
+    opacity: 1,
+    y: 0,
+  },
+});
 </script>
 
 <template>
   <li
+    ref="target"
     :class="centered ? 'justify-self-start' : 'justify-self-center'"
     class="w-full"
   >
@@ -31,7 +47,6 @@ const { pokemon } = defineProps({
       class="flex items-center overflow-hidden rounded-xl bg-white p-[15px] shadow-card"
     >
       <img
-        loading="lazy"
         class="-m-5 -ml-2 -mr-4 h-full"
         :src="pokemon.sprites['front_default']"
         :alt="'pokemon-' + pokemon.name"
