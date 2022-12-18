@@ -14,6 +14,7 @@ export const usePokemonStore = defineStore("pokeStore", {
     callPokemons: [] as Pokemon[],
     pokemons: [] as Pokemon[],
     order: "ASC-NUM" as OrderTerm,
+    currentOrder: "ASC-NUM" as OrderTerm,
     showOrder: false as boolean,
     singlePokemon: {} as SinglePokemon | undefined,
     localKeyFavourite: "favourite-pokedex-wisemen" as string,
@@ -81,11 +82,14 @@ export const usePokemonStore = defineStore("pokeStore", {
 
       this.pokemons = this.orderItems(arr);
     },
-
     toggleOrder() {
       this.showOrder = !this.showOrder;
     },
 
+    sortList() {
+      this.pokemons = this.orderItems(this.pokemons);
+      this.currentOrder = this.order;
+    },
     setOrder(order: OrderTerm) {
       this.order = order;
     },

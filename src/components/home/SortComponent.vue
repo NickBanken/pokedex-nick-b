@@ -7,12 +7,7 @@ import NumDown from "@/assets/icons/num-down.vue";
 import NumUp from "@/assets/icons/num-up.vue";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
-
 const pokemonStore = usePokemonStore();
-
-const sortList = () => {
-  pokemonStore.pokemons = pokemonStore.orderItems(pokemonStore.pokemons);
-};
 </script>
 
 <template>
@@ -36,6 +31,7 @@ const sortList = () => {
           <ButtonComponent
             @click="pokemonStore.setOrder('ASC-AZ')"
             :desc="'Alfabetisch oplopend'"
+            :value="'ASC-AZ'"
           >
             <template v-slot:icon>
               <AzDown></AzDown>
@@ -44,8 +40,8 @@ const sortList = () => {
 
           <ButtonComponent
             @click="pokemonStore.setOrder('DESC-AZ')"
-            :icon="'src/assets/icons/az-up.svg'"
             :desc="'Alfabetisch aflopend'"
+            :value="'DESC-AZ'"
           >
             <template v-slot:icon>
               <AzUp></AzUp>
@@ -54,8 +50,8 @@ const sortList = () => {
 
           <ButtonComponent
             @click="pokemonStore.setOrder('ASC-NUM')"
-            :icon="'src/assets/icons/num-up.svg'"
             :desc="'Numeriek oplopend'"
+            :value="'ASC-NUM'"
           >
             <template v-slot:icon>
               <NumDown></NumDown>
@@ -64,8 +60,8 @@ const sortList = () => {
 
           <ButtonComponent
             @click="pokemonStore.setOrder('DESC-NUM')"
-            :icon="'src/assets/icons/num-down.svg'"
             :desc="'Numeriek aflopend'"
+            :value="'DESC-NUM'"
           >
             <template v-slot:icon>
               <NumUp></NumUp>
@@ -73,7 +69,7 @@ const sortList = () => {
           </ButtonComponent>
 
           <button
-            @click="sortList"
+            @click="pokemonStore.sortList"
             class="mt-5 mb-3 rounded-3xl bg-zinc-900 p-3 font-text text-lg text-white"
           >
             Toepassen
