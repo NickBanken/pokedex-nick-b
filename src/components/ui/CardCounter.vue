@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { def } from "@vue/shared";
 import { defineProps } from "vue";
 
 import Pokeball from "@/assets/icons/pokeball.vue";

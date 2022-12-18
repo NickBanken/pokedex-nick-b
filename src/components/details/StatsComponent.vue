@@ -36,9 +36,15 @@ const calculateTotal = (arr: Array<Stat>) => {
         max="255"
       ></progress>
     </li>
-    <li class="">
+    <li class="grid grid-cols-4">
       <p class="text-grey">Total</p>
       <p>{{ calculateTotal(getPokemon.stats) }}</p>
+      <progress
+        :class="calculateTotal(getPokemon.stats)"
+        class="high col-span-2 h-[5px] w-full self-center rounded-full"
+        :value="calculateTotal(getPokemon.stats)"
+        max="255"
+      ></progress>
     </li>
   </ul>
 </template>

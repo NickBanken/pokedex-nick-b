@@ -21,7 +21,7 @@ const { pokemons, error, loading, message, lightText } = defineProps([
   <transition
     name="fade"
     v-if="pokemons.length > 0"
-    class="grid gap-3 sm:grid-cols-2"
+    class="relative grid gap-3 sm:grid-cols-2"
     tag="ul"
     appear
   >
@@ -73,6 +73,8 @@ const { pokemons, error, loading, message, lightText } = defineProps([
    animations can be calculated correctly. */
 .list-leave-active {
   opacity: 0;
+  left: 0;
+  max-width: 424px;
   position: absolute;
 }
 </style>

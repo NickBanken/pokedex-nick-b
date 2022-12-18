@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onBeforeMount } from "vue";
 
 import SortComponent from "@/components/home/SortComponent.vue";
 import InputComponentVue from "@/components/home/InputComponent.vue";
@@ -12,7 +12,7 @@ import PageLayout from "@/components/ui/PageLayout.vue";
 
 const pokemonStore = usePokemonStore();
 
-onMounted(() => {
+onBeforeMount(() => {
   pokemonStore.fetchPokemons();
 });
 </script>

@@ -28,6 +28,7 @@ export const usePokemonStore = defineStore("pokeStore", {
   actions: {
     async fetchPokemons() {
       try {
+        this.error = "";
         if (this.pokemons.length === 0) {
           this.loading = true;
           const response = await axios<Pokemon[]>({
@@ -47,12 +48,22 @@ export const usePokemonStore = defineStore("pokeStore", {
     },
 
     async fetchSinglePokemon(id: string) {
-      this.singlePokemon = undefined;
-      const response = await axios<SinglePokemon>({
-        method: "get" as string,
-        url: `https://pokeapi.co/api/v2/pokemon/${id}` as string,
-      });
-      this.singlePokemon = response.data;
+      try {
+        this.error = "";
+        this.loading = true;
+
+        this.singlePokemon = undefined;
+        const response = await axios<SinglePokemon>({
+          method: "get" as string,
+          url: `https://pokeapi.co/api/v2/pokemon/${id}` as string,
+        });
+        this.singlePokemon = response.data;
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+        this.error =
+          "Sorry, something went wrong. We could not fetch any Pokémon.";
+      }
     },
 
     orderItems(arr: Pokemon[]) {

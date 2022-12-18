@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, computed, defineProps, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 
 import ListComponent from "@/components/ui/ListComponent.vue";
 import Navigation from "@/components/ui/Navigation.vue";

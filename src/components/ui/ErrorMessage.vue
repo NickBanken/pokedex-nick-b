@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
-const { error } = defineProps(["error", "img"]);
+defineProps(["error", "img"]);
 </script>
 
 <template>

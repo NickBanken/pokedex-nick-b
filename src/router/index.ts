@@ -21,6 +21,11 @@ const router = createRouter({
       props: true,
       component: () => import("../views/ListView.vue"),
     },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "404",
+      component: () => import("../views/PageNotFound.vue"),
+    },
   ],
 });
 

@@ -10,9 +10,12 @@ import DetailPanel from "@/components/ui/DetailPanel.vue";
 import DetailComponent from "@/components/details/DetailComponent.vue";
 import StatsComponent from "@/components/details/StatsComponent.vue";
 import PageLayout from "@/components/ui/PageLayout.vue";
-
+import LoadingComponent from "@/components/ui/LoadingComponent.vue";
+import ErrorMessage from "@/components/ui/ErrorMessage.vue";
 import Navigation from "@/components/ui/Navigation.vue";
 import LightBox from "../components/ui/LightBox.vue";
+
+import snorlax from "@/assets/images/snorlax.png";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
 import { gradientBgPicker } from "@/utils/gradientBgPicker";
@@ -60,6 +63,7 @@ watch(team, (val) => {
     :bg="gradientBgPicker(singlePokemon?.types[0].type.name)"
     class="pb-40"
   >
+    <LoadingComponent v-if="pokemonStore.loading" />
     <div v-if="singlePokemon">
       <Navigation>
         <template v-slot:favourite>
@@ -114,6 +118,13 @@ watch(team, (val) => {
       >
         {{ team ? "Verwijderen van mijn team" : "Toevoegen aan mijn team" }}
       </button>
+    </div>
+    <div v-else-if="pokemonStore.error && !pokemonStore.loading">
+      <Navigation :darkMode="true"> </Navigation>
+      <ErrorMessage
+        :error="'Sorry, we could not connect to the Pokédex services.'"
+        :img="snorlax"
+      ></ErrorMessage>
     </div>
   </PageLayout>
 </template>
