@@ -83,7 +83,7 @@ export const usePokemonStore = defineStore("pokeStore", {
           return String(element.id).includes(input);
         });
       } else if (typeof input === "string") {
-        let regex = new RegExp(input + ".+$", "i");
+        let regex = new RegExp(input + ".*$", "i");
         arr = [...this.callPokemons].filter((element) => {
           return element.name.search(regex) != -1;
         });
