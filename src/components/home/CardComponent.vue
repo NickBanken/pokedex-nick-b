@@ -13,14 +13,21 @@ const { pokemon } = defineProps({
     required: true,
     type: Object as PropType<Pokemon>,
   },
+  centered: {
+    required: false,
+    type: Boolean,
+  },
 });
 </script>
 
 <template>
-  <li class="w-full max-w-[470px] justify-self-center">
+  <li
+    :class="centered ? '' : 'justify-self-center'"
+    class="w-full max-w-[470px]"
+  >
     <router-link
       :to="'/details/' + pokemon.id"
-      class="my-[5px] flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] drop-shadow-lg"
+      class="flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] shadow-card"
     >
       <img
         loading="lazy"
@@ -30,7 +37,7 @@ const { pokemon } = defineProps({
       />
 
       <div class="ml-4">
-        <h2 class="font-bold text-large">
+        <h2 class="text-large font-bold">
           {{ addCapitalFirstLetter(pokemon.name) }}
         </h2>
         <p class="text-normal text-grey">

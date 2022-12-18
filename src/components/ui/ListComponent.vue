@@ -1,17 +1,25 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { storeToRefs } from "pinia";
 
 import CardComponentVue from "@/components/home/CardComponent.vue";
+import ErrorMessage from "@/components/ui/ErrorMessage.vue";
+import LoadingComponent from "./LoadingComponent.vue";
 
-const { pokemons } = defineProps(["pokemons"]);
+import snorlax from "@/assets/images/snorlax.png";
+
+const { pokemons, error, loading } = defineProps([
+  "pokemons",
+  "error",
+  "loading",
+]);
 </script>
 
 <template>
+  <LoadingComponent v-if="loading" />
   <transition
     name="fade"
-    v-if="pokemons"
-    class="grid gap-5 sm:grid-cols-cards"
+    v-if="pokemons.length > 0"
+    class="grid gap-3 sm:grid-cols-cards"
     tag="ul"
     appear
   >
@@ -19,11 +27,13 @@ const { pokemons } = defineProps(["pokemons"]);
       <card-component-vue
         :key="pokemon.name"
         :pokemon="pokemon"
+        :centered="pokemons.length == 1"
         v-for="pokemon in pokemons"
       />
     </transition-group>
   </transition>
-  <h2 class="mt-20 text-xl text-center text-white" v-else>
+  <ErrorMessage :error="error" :img="snorlax" v-else-if="error"></ErrorMessage>
+  <h2 class="mt-20 text-center text-xl text-white" v-else>
     Sorry, we konden geen pokemon vinden...
   </h2>
 </template>

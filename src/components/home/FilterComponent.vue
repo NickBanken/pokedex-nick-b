@@ -13,7 +13,7 @@ const sortList = () => {
 <template>
   <div>
     <div
-      class="fixed bottom-0 z-10 flex flex-col w-full max-h-screen px-5 overflow-y-auto bg-white rounded-t-2xl font-display"
+      class="fixed bottom-0 z-10 flex max-h-screen w-full flex-col overflow-y-auto rounded-t-2xl bg-white px-5 font-display"
     >
       <div class="mx-auto w-full max-w-[900px]">
         <div class="flex">
@@ -21,7 +21,7 @@ const sortList = () => {
 
           <button
             @click="pokemonStore.toggleOrder"
-            class="self-center ml-auto rounded-full w-fit"
+            class="ml-auto w-fit self-center rounded-full"
           >
             <round-close class="hover:fill-slate-400"></round-close>
           </button>
@@ -57,7 +57,7 @@ const sortList = () => {
 
           <button
             @click="sortList"
-            class="p-3 mt-5 mb-3 text-lg text-white rounded-3xl bg-zinc-900 font-text"
+            class="mt-5 mb-3 rounded-3xl bg-zinc-900 p-3 font-text text-lg text-white"
           >
             Toepassen
           </button>

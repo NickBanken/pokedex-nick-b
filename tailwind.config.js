@@ -39,6 +39,18 @@ module.exports = {
         responsive: "repeat(auto-fit, minmax(250px, 1fr))",
         cards: "repeat(auto-fit, minmax(335px, 1fr))",
       },
+      boxShadow: {
+        card: "0px 15px 15px rgba(0, 0, 0, 0.04)",
+      },
+      keyframes: {
+        slowSpin: {
+          "0%": { transform: "rotate(0deg)" },
+          "70%,100%": { transform: "rotate(720deg)" },
+        },
+      },
+      animation: {
+        "spin-slow": "slowSpin 1.5s ease-in-out infinite",
+      },
     },
   },
   plugins: [],

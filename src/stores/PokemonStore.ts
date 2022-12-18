@@ -7,10 +7,10 @@ import type Pokemon from "@/types/pokemon";
 import type SinglePokemon from "@/types/singlePokemon";
 import type OrderTerm from "@/types/order";
 
-// import { getLocalStorage } from "@/utils/localStorage";
-
 export const usePokemonStore = defineStore("pokeStore", {
   state: () => ({
+    error: "" as string,
+    loading: false as boolean,
     callPokemons: [] as Pokemon[],
     pokemons: [] as Pokemon[],
     order: "ASC-NUM" as OrderTerm,
@@ -25,22 +25,24 @@ export const usePokemonStore = defineStore("pokeStore", {
     },
   },
   actions: {
-    async getListedPokemons(localKey: string) {
-      const list = this.getLocalStorage(localKey);
-      let arr: Array<Object>;
-
-      list.forEach((element: Number) => {
-        let result = this.pokemons.filter((el) => el.id == element);
-        arr.push(result);
-      });
-    },
     async fetchPokemons() {
-      const response = await axios<Pokemon[]>({
-        method: "get" as string,
-        url: "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon" as string,
-      });
-      this.callPokemons = response.data;
-      this.pokemons = response.data;
+      try {
+        if (this.pokemons.length === 0) {
+          this.loading = true;
+          const response = await axios<Pokemon[]>({
+            method: "get" as string,
+            url: "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon" as string,
+          });
+          this.callPokemons = response.data;
+          this.pokemons = response.data;
+          this.loading = false;
+        }
+        return;
+      } catch (err) {
+        this.loading = false;
+        this.error =
+          "Sorry, something went wrong. We could not fetch any Pokémon.";
+      }
     },
 
     async fetchSinglePokemon(id: string) {

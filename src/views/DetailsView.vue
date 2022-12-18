@@ -9,6 +9,7 @@ import heartFull from "@/assets/icons/heartFull.vue";
 import DetailPanel from "@/components/ui/DetailPanel.vue";
 import DetailComponent from "@/components/details/DetailComponent.vue";
 import StatsComponent from "@/components/details/StatsComponent.vue";
+import PageLayout from "@/components/ui/PageLayout.vue";
 
 import Navigation from "@/components/ui/Navigation.vue";
 import LightBox from "../components/ui/LightBox.vue";
@@ -56,11 +57,8 @@ watch(team, (val) => {
 </script>
 
 <template>
-  <main
-    v-if="singlePokemon"
-    class="p[0.5px] m-0 flex min-h-screen flex-col bg-green-400 px-5 pb-32 font-display"
-  >
-    <div class="mx-auto w-full max-w-[900px]">
+  <PageLayout :bg="'bg-green-400'">
+    <div v-if="singlePokemon">
       <Navigation>
         <template v-slot:favourite>
           <div class="cursor-pointer">
@@ -92,7 +90,7 @@ watch(team, (val) => {
         </LightBox>
       </div>
 
-      <section class="grid gap-5 grid-cols-responsive">
+      <section class="grid grid-cols-responsive gap-5">
         <DetailPanel>
           <template v-slot:title>INFO</template>
           <template v-slot:content>
@@ -110,10 +108,10 @@ watch(team, (val) => {
 
       <button
         @click="toggleTeam"
-        class="box-border fixed block px-20 py-3 font-bold text-white rounded-full bottom-10 left-2/4 w-max -translate-x-2/4 bg-dark"
+        class="fixed bottom-10 left-2/4 box-border block w-max -translate-x-2/4 rounded-full bg-dark px-20 py-3 font-bold text-white"
       >
         {{ team ? "Verwijderen van mijn team" : "Toevoegen aan mijn team" }}
       </button>
     </div>
-  </main>
+  </PageLayout>
 </template>

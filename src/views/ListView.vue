@@ -8,6 +8,7 @@ import { useRoute } from "vue-router";
 
 import type singlePokemon from "@/types/singlePokemon";
 import type { Ref } from "vue";
+import PageLayout from "@/components/ui/PageLayout.vue";
 
 const pokemonStore = usePokemonStore();
 
@@ -31,14 +32,20 @@ switch (route.params.mode) {
 }
 
 onBeforeMount(() => {
-  listedPokemon = pokemonStore.getLocalStorage(apikey.value);
+  const pokemons = pokemonStore.getLocalStorage(apikey.value);
+  if (pokemons != null) {
+    listedPokemon = pokemons;
+  }
 });
 </script>
 
 <template>
-  <main :class="background" class="flex flex-col h-screen px-5">
+  <PageLayout :bg="background">
     <Navigation />
     <h2 class="mb-6 text-[34px] font-bold text-white">{{ title }}</h2>
-    <ListComponent :pokemons="listedPokemon"></ListComponent>
-  </main>
+    <ListComponent
+      v-if="listedPokemon"
+      :pokemons="listedPokemon"
+    ></ListComponent>
+  </PageLayout>
 </template>

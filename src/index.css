@@ -45,3 +45,9 @@
       format("opentype");
   }
 }
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-[900px] px-5;
+  }
+}
