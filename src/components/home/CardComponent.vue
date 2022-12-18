@@ -62,7 +62,7 @@ useMotion(target, {
         </p>
       </div>
 
-      <type-label class="ml-auto" :pokemon="pokemon" />
+      <type-label class="ml-auto justify-end" :pokemon="pokemon" />
 
       <chevronRight class="ml-2"></chevronRight>
     </router-link>

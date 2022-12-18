@@ -59,7 +59,7 @@ const { pokemons, error, loading, message, lightText } = defineProps([
 .list-enter-to
  /* apply transition to moving elements */
 .list-enter-active {
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 
 .list-enter,
@@ -73,22 +73,8 @@ const { pokemons, error, loading, message, lightText } = defineProps([
    animations can be calculated correctly. */
 .list-leave-active {
   opacity: 0;
-  left: 0;
-  max-width: 424px;
+  bottom: 0;
+  grid-column: 1/2;
   position: absolute;
 }
 </style>
-
-<!-- <style scoped>
-.slide-fade-enter-active {
-  transition: all 0.3s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
-}
-</style> -->
