@@ -27,7 +27,7 @@ const pokemonStore = usePokemonStore();
           </button>
         </div>
 
-        <div class="flex flex-col">
+        <form @submit.prevent class="flex flex-col">
           <ButtonComponent
             @click="pokemonStore.setOrder('ASC-AZ')"
             :desc="'Alfabetisch oplopend'"
@@ -78,7 +78,7 @@ const pokemonStore = usePokemonStore();
           <div
             class="my-2 h-[5px] w-[143px] self-center rounded-2xl bg-zinc-900"
           ></div>
-        </div>
+        </form>
       </div>
     </div>
 
