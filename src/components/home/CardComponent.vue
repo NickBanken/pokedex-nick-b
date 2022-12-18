@@ -7,30 +7,38 @@ import { addCapitalFirstLetter } from "@/utils/utils";
 import TypeLabel from "../ui/TypeLabel.vue";
 
 import type Pokemon from "@/types/pokemon";
+import chevronRight from "@/assets/icons/chevron-right.vue";
 
 const { pokemon } = defineProps({
   pokemon: {
     required: true,
     type: Object as PropType<Pokemon>,
   },
+  centered: {
+    required: false,
+    type: Boolean,
+  },
 });
 </script>
 
 <template>
-  <li>
+  <li
+    :class="centered ? 'justify-self-start' : 'justify-self-center'"
+    class="w-full"
+  >
     <router-link
       :to="'/details/' + pokemon.id"
-      class="my-[5px] flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] drop-shadow-lg"
+      class="flex items-center overflow-hidden rounded-xl bg-white p-[15px] shadow-card"
     >
       <img
         loading="lazy"
-        class="mx-2 h-full scale-[2]"
+        class="-m-5 -ml-2 -mr-4 h-full"
         :src="pokemon.sprites['front_default']"
         :alt="'pokemon-' + pokemon.name"
       />
 
       <div class="ml-4">
-        <h2 class="font-bold text-large">
+        <h2 class="text-large font-bold">
           {{ addCapitalFirstLetter(pokemon.name) }}
         </h2>
         <p class="text-normal text-grey">
@@ -40,7 +48,7 @@ const { pokemon } = defineProps({
 
       <type-label class="ml-auto" :pokemon="pokemon" />
 
-      <img src="@/assets/icons/chevron-right.svg" alt="chevron-right" />
+      <chevronRight class="ml-2"></chevronRight>
     </router-link>
   </li>
 </template>

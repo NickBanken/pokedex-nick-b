@@ -1,53 +1,38 @@
 <script setup lang="ts">
-import { watch, onBeforeMount } from "vue";
+import { onMounted } from "vue";
 
-import FilterComponent from "@/components/home/FilterComponent.vue";
+import SortComponent from "@/components/home/SortComponent.vue";
 import InputComponentVue from "@/components/home/InputComponent.vue";
 import ListComponent from "@/components/ui/ListComponent.vue";
 
-import { storeToRefs } from "pinia";
 import { usePokemonStore } from "@/stores/PokemonStore";
 import FilterIcon from "@/assets/icons/filterIcon.vue";
 import CardCounter from "@/components/ui/CardCounter.vue";
+import PageLayout from "@/components/ui/PageLayout.vue";
+
 const pokemonStore = usePokemonStore();
 
-const { showOrder } = storeToRefs(pokemonStore);
-
-onBeforeMount(() => {
+onMounted(() => {
   pokemonStore.fetchPokemons();
 });
-
-watch(
-  () => pokemonStore.showOrder,
-  (newVal: boolean, _) => {
-    if (newVal) {
-      document.documentElement.style.overflowY = "scroll";
-      document.documentElement.style.position = "fixed";
-      document.documentElement.style.width = "100%";
-    } else {
-      document.documentElement.style.overflowY = "auto";
-      document.documentElement.style.position = "static";
-    }
-  }
-);
 </script>
 
 <template>
-  <main
-    class="p[0.5px] m-0 flex min-h-screen flex-col bg-app px-5 font-display"
-  >
-    <button
-      @click="pokemonStore.toggleOrder"
-      title="filter"
-      type="button"
-      class="p-2 mt-5 ml-auto"
-    >
-      <filter-icon />
-    </button>
-    <h1 class="font-display text-[34px] font-bold text-dark">Pokédex</h1>
-    <input-component-vue />
+  <PageLayout :bg="'bg-app'">
+    <nav>
+      <button
+        @click="pokemonStore.toggleOrder"
+        title="filter"
+        type="button"
+        class="mt-5 ml-auto block p-2"
+      >
+        <filter-icon />
+      </button>
+      <h1 class="font-display text-[34px] font-bold text-dark">Pokédex</h1>
+      <input-component-vue />
+    </nav>
 
-    <section class="grid grid-cols-2 gap-2 mb-5">
+    <section class="mb-5 grid grid-cols-2 gap-2">
       <router-link :to="'/list/' + 'team'">
         <CardCounter
           :title="'Mijn team'"
@@ -65,13 +50,23 @@ watch(
       </router-link>
     </section>
 
-    <section>
+    <section class="mb-20">
       <!-- <list-component-vue class="mb-5" /> -->
-      <ListComponent :pokemons="pokemonStore.getAllPokemons" />
+      <ListComponent
+        :pokemons="pokemonStore.getAllPokemons"
+        :error="pokemonStore.error"
+        :loading="pokemonStore.loading"
+        :message="'Sorry, we konden geen pokemon vinden...'"
+      />
     </section>
-  </main>
+  </PageLayout>
   <transition name="fade">
-    <filter-component v-if="showOrder" />
+    <SortComponent
+      @wheel.prevent
+      @touchmove.prevent
+      @scroll.prevent
+      v-if="pokemonStore.showOrder"
+    />
   </transition>
 </template>
 

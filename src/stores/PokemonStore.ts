@@ -7,43 +7,43 @@ import type Pokemon from "@/types/pokemon";
 import type SinglePokemon from "@/types/singlePokemon";
 import type OrderTerm from "@/types/order";
 
-// import { getLocalStorage } from "@/utils/localStorage";
-
 export const usePokemonStore = defineStore("pokeStore", {
   state: () => ({
+    error: "" as string,
+    loading: false as boolean,
     callPokemons: [] as Pokemon[],
     pokemons: [] as Pokemon[],
     order: "ASC-NUM" as OrderTerm,
+    currentOrder: "ASC-NUM" as OrderTerm,
     showOrder: false as boolean,
     singlePokemon: {} as SinglePokemon | undefined,
     localKeyFavourite: "favourite-pokedex-wisemen" as string,
     localKeyTeam: "team-pokedex-wisemen" as string,
   }),
   getters: {
-    getSinglePokemon(state) {
-      return state.singlePokemon;
-    },
     getAllPokemons(state) {
       return state.pokemons;
     },
   },
   actions: {
-    async getListedPokemons(localKey: string) {
-      const list = this.getLocalStorage(localKey);
-      let arr: Array<Object>;
-
-      list.forEach((element: Number) => {
-        let result = this.pokemons.filter((el) => el.id == element);
-        arr.push(result);
-      });
-    },
     async fetchPokemons() {
-      const response = await axios<Pokemon[]>({
-        method: "get" as string,
-        url: "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon" as string,
-      });
-      this.callPokemons = response.data;
-      this.pokemons = response.data;
+      try {
+        if (this.pokemons.length === 0) {
+          this.loading = true;
+          const response = await axios<Pokemon[]>({
+            method: "get" as string,
+            url: "https://stoplight.io/mocks/appwise-be/pokemon/57519009/pokemon" as string,
+          });
+          this.callPokemons = response.data;
+          this.pokemons = response.data;
+          this.loading = false;
+        }
+        return;
+      } catch (err) {
+        this.loading = false;
+        this.error =
+          "Sorry, something went wrong. We could not fetch any Pokémon.";
+      }
     },
 
     async fetchSinglePokemon(id: string) {
@@ -82,11 +82,14 @@ export const usePokemonStore = defineStore("pokeStore", {
 
       this.pokemons = this.orderItems(arr);
     },
-
     toggleOrder() {
       this.showOrder = !this.showOrder;
     },
 
+    sortList() {
+      this.pokemons = this.orderItems(this.pokemons);
+      this.currentOrder = this.order;
+    },
     setOrder(order: OrderTerm) {
       this.order = order;
     },
@@ -134,14 +137,10 @@ export const usePokemonStore = defineStore("pokeStore", {
           break;
 
         case false:
-          console.log("remove");
-
           if (localStorage.getItem(key)) {
             let arr = JSON.parse(localStorage.getItem(key)!);
-            console.log(item?.id);
 
             arr = arr.filter((val: SinglePokemon) => {
-              console.log("This aint runnin?");
               return val.id != item?.id;
             });
 

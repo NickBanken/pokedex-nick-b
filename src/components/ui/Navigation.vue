@@ -3,9 +3,9 @@ import chevronLeft from "@/assets/icons/chevron-left.vue";
 </script>
 
 <template>
-  <nav class="flex justify-between mt-5">
+  <nav class="mt-5 flex justify-between">
     <a
-      class="flex font-light tracking-wider text-white font-text"
+      class="flex cursor-pointer font-text font-light tracking-wider text-white"
       @click="$router.go(-1)"
     >
       <chevronLeft class="mr-1" />
