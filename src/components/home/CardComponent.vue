@@ -47,6 +47,7 @@ useMotion(target, {
       class="flex items-center overflow-hidden rounded-xl bg-white p-[15px] shadow-card"
     >
       <img
+        loading="lazy"
         class="-m-5 -ml-2 -mr-4 h-full"
         :src="pokemon.sprites['front_default']"
         :alt="'pokemon-' + pokemon.name"
