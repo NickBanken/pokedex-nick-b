@@ -35,6 +35,6 @@ export const gradientBgPicker = (type: string | undefined) => {
     case "rock":
       return "bg-gradient-to-b from-rockDark to-rockLight";
     default:
-      return "bg-gradient-to-b from-ghostDark to-ghostLight";
+      return "bg-white";
   }
 };
