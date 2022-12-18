@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { usePokemonStore } from "@/stores/PokemonStore";
+
+import magnifyingGlass from "@/assets/icons/magnifying-glass.vue";
+
 const pokemonStore = usePokemonStore();
 
 const searchInput = ref("");
@@ -8,13 +11,9 @@ const searchInput = ref("");
 
 <template>
   <div
-    class="mt-[14px] mb-[19px] flex rounded-xl bg-light-grey py-[7px] px-[8px] text-large text-dark-grey"
+    class="mt-[14px] mb-[19px] flex items-center rounded-xl bg-light-grey py-[7px] px-[8px] text-large text-dark-grey"
   >
-    <img
-      alt="magnifying-glass"
-      class="mr-[6px]"
-      src="@/assets/icons/magnifying-glass.svg"
-    />
+    <magnifyingGlass class="mr-[6px]"></magnifyingGlass>
     <input
       @input="pokemonStore.searchPokemons(searchInput)"
       v-model="searchInput"

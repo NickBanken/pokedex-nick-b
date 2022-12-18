@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-import FilterComponent from "@/components/home/FilterComponent.vue";
+import SortComponent from "@/components/home/SortComponent.vue";
 import InputComponentVue from "@/components/home/InputComponent.vue";
 import ListComponent from "@/components/ui/ListComponent.vue";
 
@@ -61,7 +61,7 @@ onMounted(() => {
     </section>
   </PageLayout>
   <transition name="fade">
-    <filter-component
+    <SortComponent
       @wheel.prevent
       @touchmove.prevent
       @scroll.prevent

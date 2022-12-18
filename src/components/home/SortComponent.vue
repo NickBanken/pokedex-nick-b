@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import ButtonComponentVue from "../ui/SortButtonComponent.vue";
+import ButtonComponent from "../ui/SortButtonComponent.vue";
 import roundClose from "@/assets/icons/roundClose.vue";
+import AzDown from "@/assets/icons/az-down.vue";
+import AzUp from "@/assets/icons/az-up.vue";
+import NumDown from "@/assets/icons/num-down.vue";
+import NumUp from "@/assets/icons/num-up.vue";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
+
 const pokemonStore = usePokemonStore();
 
 const sortList = () => {
@@ -28,32 +33,44 @@ const sortList = () => {
         </div>
 
         <div class="flex flex-col">
-          <button-component-vue
+          <ButtonComponent
             @click="pokemonStore.setOrder('ASC-AZ')"
-            :icon="'src/assets/icons/az-down.svg'"
             :desc="'Alfabetisch oplopend'"
-          />
+          >
+            <template v-slot:icon>
+              <AzDown></AzDown>
+            </template>
+          </ButtonComponent>
 
-          <button-component-vue
+          <ButtonComponent
             @click="pokemonStore.setOrder('DESC-AZ')"
             :icon="'src/assets/icons/az-up.svg'"
             :desc="'Alfabetisch aflopend'"
           >
-          </button-component-vue>
+            <template v-slot:icon>
+              <AzUp></AzUp>
+            </template>
+          </ButtonComponent>
 
-          <button-component-vue
+          <ButtonComponent
             @click="pokemonStore.setOrder('ASC-NUM')"
             :icon="'src/assets/icons/num-up.svg'"
             :desc="'Numeriek oplopend'"
           >
-          </button-component-vue>
+            <template v-slot:icon>
+              <NumDown></NumDown>
+            </template>
+          </ButtonComponent>
 
-          <button-component-vue
+          <ButtonComponent
             @click="pokemonStore.setOrder('DESC-NUM')"
             :icon="'src/assets/icons/num-down.svg'"
             :desc="'Numeriek aflopend'"
           >
-          </button-component-vue>
+            <template v-slot:icon>
+              <NumUp></NumUp>
+            </template>
+          </ButtonComponent>
 
           <button
             @click="sortList"

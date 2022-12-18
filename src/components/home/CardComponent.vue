@@ -7,6 +7,7 @@ import { addCapitalFirstLetter } from "@/utils/utils";
 import TypeLabel from "../ui/TypeLabel.vue";
 
 import type Pokemon from "@/types/pokemon";
+import chevronRight from "@/assets/icons/chevron-right.vue";
 
 const { pokemon } = defineProps({
   pokemon: {
@@ -47,7 +48,7 @@ const { pokemon } = defineProps({
 
       <type-label class="ml-auto" :pokemon="pokemon" />
 
-      <img src="@/assets/icons/chevron-right.svg" alt="chevron-right" />
+      <chevronRight class="ml-2"></chevronRight>
     </router-link>
   </li>
 </template>
