@@ -7,10 +7,12 @@ import LoadingComponent from "./LoadingComponent.vue";
 
 import snorlax from "@/assets/images/snorlax.png";
 
-const { pokemons, error, loading } = defineProps([
+const { pokemons, error, loading, message, lightText } = defineProps([
   "pokemons",
   "error",
   "loading",
+  "message",
+  "lightText",
 ]);
 </script>
 
@@ -19,7 +21,7 @@ const { pokemons, error, loading } = defineProps([
   <transition
     name="fade"
     v-if="pokemons.length > 0"
-    class="grid gap-3 sm:grid-cols-cards md:grid-cols-cardsLg"
+    class="grid gap-3 sm:grid-cols-2"
     tag="ul"
     appear
   >
@@ -33,8 +35,12 @@ const { pokemons, error, loading } = defineProps([
     </transition-group>
   </transition>
   <ErrorMessage :error="error" :img="snorlax" v-else-if="error"></ErrorMessage>
-  <h2 class="mt-20 text-center text-xl text-white" v-else>
-    Sorry, we konden geen pokemon vinden...
+  <h2
+    :class="lightText ? 'text-white' : 'text-black'"
+    class="mt-20 text-center text-xl"
+    v-else-if="!loading"
+  >
+    {{ message }}
   </h2>
 </template>
 

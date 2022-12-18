@@ -71,8 +71,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         responsive: "repeat(auto-fit, minmax(250px, 1fr))",
-        cards: "repeat(auto-fit, minmax(250px, 1fr))",
-        cardsLg: "repeat(auto-fit, minmax(335px, 1fr))",
+        // cards: "repeat(auto-fit, minmax(250px, 1fr))",
+        // cardsLg: "repeat(auto-fit, minmax(335px, 1fr))",
       },
       boxShadow: {
         card: "0px 15px 15px rgba(0, 0, 0, 0.04)",

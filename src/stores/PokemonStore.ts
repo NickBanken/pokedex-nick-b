@@ -135,7 +135,6 @@ export const usePokemonStore = defineStore("pokeStore", {
         case false:
           if (localStorage.getItem(key)) {
             let arr = JSON.parse(localStorage.getItem(key)!);
-            console.log(item?.id);
 
             arr = arr.filter((val: SinglePokemon) => {
               return val.id != item?.id;

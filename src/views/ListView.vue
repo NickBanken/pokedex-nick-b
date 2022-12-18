@@ -16,6 +16,7 @@ let listedPokemon: Ref<singlePokemon[]> = ref([]);
 let apikey: Ref<string> = ref<string>("");
 let title: Ref<string> = ref<string>("");
 let background: Ref<string> = ref<string>("");
+let message: Ref<string> = ref<string>("");
 
 const route = useRoute();
 
@@ -24,11 +25,14 @@ switch (route.params.mode) {
     apikey.value = pokemonStore.localKeyFavourite;
     title.value = "Favorieten";
     background.value = "bg-[#15D0DC]";
+    message.value =
+      "Zo te zien heb je geen favorieten Pokémons... Zoek naar jou Pokémon en voeg ze toe.";
     break;
   case "team":
     apikey.value = pokemonStore.localKeyTeam;
     title.value = "Mijn team";
     background.value = "bg-[#7E32E0]";
+    message.value = "Je team is leeg, wees snel en stel je team samen.";
 }
 
 onBeforeMount(() => {
@@ -46,6 +50,8 @@ onBeforeMount(() => {
     <ListComponent
       v-if="listedPokemon"
       :pokemons="listedPokemon"
+      :message="message"
+      :lightText="true"
     ></ListComponent>
   </PageLayout>
 </template>

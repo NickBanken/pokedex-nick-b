@@ -39,8 +39,6 @@ const toggleTeam = () => {
 };
 
 watch(singlePokemon, () => {
-  console.log(gradientBgPicker);
-  console.log(gradientBgPicker(singlePokemon.value?.types[0].type.name));
   favourite.value = pokemonStore.checkIfListed(
     pokemonStore.singlePokemon,
     "favourite"

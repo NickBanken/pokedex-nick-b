@@ -56,6 +56,7 @@ onMounted(() => {
         :pokemons="pokemonStore.getAllPokemons"
         :error="pokemonStore.error"
         :loading="pokemonStore.loading"
+        :message="'Sorry, we konden geen pokemon vinden...'"
       />
     </section>
   </PageLayout>

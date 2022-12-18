@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { bg } = defineProps(["bg"]);
-console.log(bg);
 </script>
 
 <template>
