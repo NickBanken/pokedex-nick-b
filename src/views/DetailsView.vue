@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeMount, computed, ref, watch } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 
@@ -15,13 +15,12 @@ import Navigation from "@/components/ui/Navigation.vue";
 import LightBox from "../components/ui/LightBox.vue";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
+import { gradientBgPicker } from "@/utils/gradientBgPicker";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
 
 const route = useRoute();
-
 const pokemonStore = usePokemonStore();
-
 const { singlePokemon } = storeToRefs(pokemonStore);
 
 let favourite = ref(false);
@@ -40,6 +39,8 @@ const toggleTeam = () => {
 };
 
 watch(singlePokemon, () => {
+  console.log(gradientBgPicker);
+  console.log(gradientBgPicker(singlePokemon.value?.types[0].type.name));
   favourite.value = pokemonStore.checkIfListed(
     pokemonStore.singlePokemon,
     "favourite"
@@ -57,7 +58,10 @@ watch(team, (val) => {
 </script>
 
 <template>
-  <PageLayout :bg="'bg-green-400'">
+  <PageLayout
+    :bg="gradientBgPicker(singlePokemon?.types[0].type.name)"
+    class="pb-40"
+  >
     <div v-if="singlePokemon">
       <Navigation>
         <template v-slot:favourite>

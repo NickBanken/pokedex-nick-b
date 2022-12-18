@@ -11,12 +11,12 @@ const {} = defineProps(["title", "mode", "color"]);
 </script>
 
 <template>
-  <div :class="color" class="relative rounded-xl bg-[] p-3 font-text">
+  <div :class="color" class="relative rounded-xl p-3 font-text">
     <h2 class="mt-8 text-lg font-bold text-white">{{ title }}</h2>
-    <p class="text-white opacity-50 text-md">
+    <p class="text-md text-white opacity-50">
       {{ pokemonStore.countTotal(mode) }} Pokemons
     </p>
 
-    <Pokeball class="absolute right-0 -translate-y-1/2 inset-y-2/4" />
+    <Pokeball class="absolute inset-y-2/4 right-0 -translate-y-1/2" />
   </div>
 </template>

@@ -21,17 +21,14 @@ const { pokemon } = defineProps({
 </script>
 
 <template>
-  <li
-    :class="centered ? '' : 'justify-self-center'"
-    class="w-full max-w-[470px]"
-  >
+  <li :class="centered ? '' : 'justify-self-center'" class="w-full">
     <router-link
       :to="'/details/' + pokemon.id"
-      class="flex h-[70px] max-h-[70px] items-center overflow-hidden rounded-xl bg-white p-[15px] shadow-card"
+      class="flex items-center overflow-hidden rounded-xl bg-white p-[15px] shadow-card"
     >
       <img
         loading="lazy"
-        class="mx-2 h-full scale-[2]"
+        class="-m-5 -ml-2 -mr-4 h-full"
         :src="pokemon.sprites['front_default']"
         :alt="'pokemon-' + pokemon.name"
       />

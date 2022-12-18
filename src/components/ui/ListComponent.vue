@@ -19,7 +19,7 @@ const { pokemons, error, loading } = defineProps([
   <transition
     name="fade"
     v-if="pokemons.length > 0"
-    class="grid gap-3 sm:grid-cols-cards"
+    class="grid gap-3 sm:grid-cols-cards md:grid-cols-cardsLg"
     tag="ul"
     appear
   >
