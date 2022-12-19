@@ -88,7 +88,6 @@ export const usePokemonStore = defineStore("pokeStore", {
         let regex = new RegExp(input + ".*$", "i");
 
         let filteredPokemon = [...this.callPokemons].filter((pokemon) => {
-          console.log(grabTypes(pokemon));
           return (
             pokemon.name.search(regex) != -1 ||
             grabTypes(pokemon).search(regex) != -1

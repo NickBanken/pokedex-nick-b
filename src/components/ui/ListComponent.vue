@@ -60,7 +60,7 @@ const { pokemons, error, loading, message, lightText } = defineProps([
 .list-enter-to
  /* apply transition to moving elements */
 .list-enter-active {
-  transition: all 0.2s ease;
+  transition: all 0.4s ease;
 }
 
 .list-enter,

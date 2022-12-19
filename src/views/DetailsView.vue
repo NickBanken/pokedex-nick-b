@@ -132,11 +132,11 @@ const handleTeamButton = computed(() => {
           :disabled="handleTeamButton"
           @click="toggleTeam"
           :class="handleTeamButton ? 'bg-dark-grey' : ''"
-          class="box-border fixed block px-20 py-3 font-bold text-white rounded-full bottom-10 left-2/4 w-max -translate-x-2/4 bg-dark"
+          class="fixed bottom-10 left-2/4 box-border block w-max max-w-[100%] -translate-x-2/4 rounded-full bg-dark px-20 py-3 font-bold text-white"
         >
           {{
             handleTeamButton
-              ? "Je kunt maximum 6 Pokémons toevoegen aan je team."
+              ? "Max 6 Pokémons in 1 team."
               : team
               ? "Verwijderen van mijn team"
               : "Toevoegen aan mijn team"
