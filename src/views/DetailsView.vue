@@ -28,6 +28,7 @@ const { singlePokemon } = storeToRefs(pokemonStore);
 
 let favourite = ref(false);
 let team = ref(false);
+let imageLoaded = ref(false);
 
 onBeforeMount(() => {
   pokemonStore.fetchSinglePokemon(route.params.id as string);
@@ -59,72 +60,89 @@ watch(team, (val) => {
 </script>
 
 <template>
-  <PageLayout
-    :bg="gradientBgPicker(singlePokemon?.types[0].type.name)"
-    class="pb-40"
-  >
-    <LoadingComponent v-if="pokemonStore.loading" />
-    <div v-if="singlePokemon">
-      <Navigation>
-        <template v-slot:favourite>
-          <div class="cursor-pointer">
-            <heart @click="toggleFavourite" v-if="!favourite" />
-            <heartFull @click="toggleFavourite" v-if="favourite" />
-          </div>
-        </template>
-      </Navigation>
+  <transition name="fade" appear>
+    <PageLayout
+      :bg="gradientBgPicker(singlePokemon?.types[0].type.name)"
+      class="pb-40"
+    >
+      <LoadingComponent v-if="pokemonStore.loading" />
+      <div v-if="singlePokemon">
+        <Navigation>
+          <template v-slot:favourite>
+            <div class="cursor-pointer">
+              <heart @click="toggleFavourite" v-if="!favourite" />
+              <heartFull @click="toggleFavourite" v-if="favourite" />
+            </div>
+          </template>
+        </Navigation>
 
-      <h2 class="mb-8 text-[34px] font-bold text-white">
-        {{ addCapitalFirstLetter(pokemonStore.singlePokemon?.name) }}
-      </h2>
+        <h2 class="mb-8 text-[34px] font-bold text-white">
+          {{ addCapitalFirstLetter(pokemonStore.singlePokemon?.name) }}
+        </h2>
 
-      <div class="mx-auto mb-10 h-60 w-60">
-        <LightBox
-          :img="
-            pokemonStore.singlePokemon?.sprites?.other['official-artwork']
-              .front_default
-          "
-        >
-          <img
-            loading="lazy"
-            :src="
+        <div class="mx-auto mb-10 h-60 w-60">
+          <LightBox
+            :img="
               pokemonStore.singlePokemon?.sprites?.other['official-artwork']
                 .front_default
             "
-            :alt="pokemonStore.singlePokemon?.name"
-          />
-        </LightBox>
+          >
+            <transition name="fade">
+              <img
+                v-on:load="imageLoaded = true"
+                v-show="imageLoaded"
+                :src="
+                  pokemonStore.singlePokemon?.sprites?.other['official-artwork']
+                    .front_default
+                "
+                :alt="pokemonStore.singlePokemon?.name"
+              />
+            </transition>
+          </LightBox>
+        </div>
+
+        <section class="grid gap-5 grid-cols-responsive">
+          <DetailPanel>
+            <template v-slot:title>INFO</template>
+            <template v-slot:content>
+              <DetailComponent :getPokemon="pokemonStore.singlePokemon" />
+            </template>
+          </DetailPanel>
+
+          <DetailPanel>
+            <template v-slot:title>STATISTIEKEN</template>
+            <template v-slot:content>
+              <StatsComponent :getPokemon="pokemonStore.singlePokemon" />
+            </template>
+          </DetailPanel>
+        </section>
+
+        <button
+          @click="toggleTeam"
+          class="box-border fixed block px-20 py-3 font-bold text-white rounded-full bottom-10 left-2/4 w-max -translate-x-2/4 bg-dark"
+        >
+          {{ team ? "Verwijderen van mijn team" : "Toevoegen aan mijn team" }}
+        </button>
       </div>
-
-      <section class="grid grid-cols-responsive gap-5">
-        <DetailPanel>
-          <template v-slot:title>INFO</template>
-          <template v-slot:content>
-            <DetailComponent :getPokemon="pokemonStore.singlePokemon" />
-          </template>
-        </DetailPanel>
-
-        <DetailPanel>
-          <template v-slot:title>STATISTIEKEN</template>
-          <template v-slot:content>
-            <StatsComponent :getPokemon="pokemonStore.singlePokemon" />
-          </template>
-        </DetailPanel>
-      </section>
-
-      <button
-        @click="toggleTeam"
-        class="fixed bottom-10 left-2/4 box-border block w-max -translate-x-2/4 rounded-full bg-dark px-20 py-3 font-bold text-white"
-      >
-        {{ team ? "Verwijderen van mijn team" : "Toevoegen aan mijn team" }}
-      </button>
-    </div>
-    <div v-else-if="pokemonStore.error && !pokemonStore.loading">
-      <Navigation :darkMode="true"> </Navigation>
-      <ErrorMessage
-        :error="'Sorry, we could not connect to the Pokédex services.'"
-        :img="snorlax"
-      ></ErrorMessage>
-    </div>
-  </PageLayout>
+      <div v-else-if="pokemonStore.error && !pokemonStore.loading">
+        <Navigation :darkMode="true"> </Navigation>
+        <ErrorMessage
+          :error="'Sorry, we could not connect to the Pokédex services.'"
+          :img="snorlax"
+        ></ErrorMessage>
+      </div>
+    </PageLayout>
+  </transition>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

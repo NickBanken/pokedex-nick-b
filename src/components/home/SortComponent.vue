@@ -24,7 +24,7 @@ const pokemonStore = usePokemonStore();
               @click="pokemonStore.toggleOrder"
               class="self-center ml-auto rounded-full w-fit"
             >
-              <round-close class="hover:fill-slate-400"></round-close>
+              <roundClose class="hover:fill-slate-400"></roundClose>
             </button>
           </div>
 
