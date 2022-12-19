@@ -67,7 +67,7 @@ watch(
 
     <section class="mb-20">
       <ListComponent
-        :pokemons="pokemonStore.getAllPokemons"
+        :pokemons="pokemonStore.pokemons"
         :error="pokemonStore.error"
         :loading="pokemonStore.loading"
         :message="'Sorry, we konden geen pokemon vinden...'"

@@ -10,7 +10,7 @@ const addCapitalFirstLetter = (string: string) => {
 </script>
 
 <template>
-  <ul class="flex flex-wrap gap-1 text-[12px]">
+  <ul class="flex flex-wrap gap-1 self-start text-[12px]">
     <li
       :class="typeColors[typeInfo.type.name as keyof {}]"
       class="rounded-xl px-[10px] py-[3px] text-white"

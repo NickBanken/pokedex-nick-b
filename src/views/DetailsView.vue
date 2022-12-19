@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, watch } from "vue";
+import { onBeforeMount, ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 
@@ -21,6 +21,7 @@ import { addCapitalFirstLetter } from "@/utils/utils";
 import { gradientBgPicker } from "@/utils/gradientBgPicker";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
+import type Pokemon from "@/types/pokemon";
 
 const route = useRoute();
 const pokemonStore = usePokemonStore();
@@ -56,6 +57,14 @@ watch(favourite, (val) => {
 
 watch(team, (val) => {
   pokemonStore.handleToList(val, pokemonStore.singlePokemon, "team");
+});
+
+const handleTeamButton = computed(() => {
+  let arr = pokemonStore.getLocalStorage(pokemonStore.localKeyTeam);
+  let inTeam = arr.some((teamPokemon: Pokemon) => {
+    return teamPokemon.name === singlePokemon.value?.name;
+  });
+  return arr.length >= 6 && !inTeam;
 });
 </script>
 
@@ -118,10 +127,18 @@ watch(team, (val) => {
         </section>
 
         <button
+          :disabled="handleTeamButton"
           @click="toggleTeam"
+          :class="handleTeamButton ? 'bg-dark-grey' : ''"
           class="box-border fixed block px-20 py-3 font-bold text-white rounded-full bottom-10 left-2/4 w-max -translate-x-2/4 bg-dark"
         >
-          {{ team ? "Verwijderen van mijn team" : "Toevoegen aan mijn team" }}
+          {{
+            handleTeamButton
+              ? "Je kunt maximum 6 Pokémons toevoegen aan je team."
+              : team
+              ? "Verwijderen van mijn team"
+              : "Toevoegen aan mijn team"
+          }}
         </button>
       </div>
       <div v-else-if="pokemonStore.error && !pokemonStore.loading">

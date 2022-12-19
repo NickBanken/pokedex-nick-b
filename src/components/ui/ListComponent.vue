@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 
-import CardComponent from "@/components/home/CardComponent.vue";
+import CardComponent from "@/components/ui/CardComponent.vue";
 import ErrorMessage from "@/components/ui/ErrorMessage.vue";
 import LoadingComponent from "./LoadingComponent.vue";
 

@@ -1,8 +1,5 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-
-import { toRaw } from "vue";
-
 import type Pokemon from "@/types/pokemon";
 import type SinglePokemon from "@/types/singlePokemon";
 import type OrderTerm from "@/types/order";
@@ -20,11 +17,7 @@ export const usePokemonStore = defineStore("pokeStore", {
     localKeyFavourite: "favourite-pokedex-wisemen" as string,
     localKeyTeam: "team-pokedex-wisemen" as string,
   }),
-  getters: {
-    getAllPokemons(state) {
-      return state.pokemons;
-    },
-  },
+
   actions: {
     async fetchPokemons() {
       try {
@@ -51,8 +44,8 @@ export const usePokemonStore = defineStore("pokeStore", {
       try {
         this.error = "";
         this.loading = true;
-
         this.singlePokemon = undefined;
+
         const response = await axios<SinglePokemon>({
           method: "get" as string,
           url: `https://pokeapi.co/api/v2/pokemon/${id}` as string,
@@ -78,19 +71,33 @@ export const usePokemonStore = defineStore("pokeStore", {
     searchPokemons(input: string) {
       let arr: Pokemon[];
 
+      let grabTypes = (pokemon: Pokemon) => {
+        let typeArr: string[] = [];
+        pokemon.types.forEach((typeDetail) => {
+          typeArr.push(typeDetail.type.name);
+        });
+        return typeArr.join(" ");
+      };
+
       if (!isNaN(Number(input))) {
         arr = [...this.callPokemons].filter((element) => {
           return String(element.id).includes(input);
         });
       } else if (typeof input === "string") {
+        //Regex for user input - takes all uppercase
         let regex = new RegExp(input + ".*$", "i");
-        arr = [...this.callPokemons].filter((element) => {
-          return element.name.search(regex) != -1;
+
+        let filteredPokemon = [...this.callPokemons].filter((pokemon) => {
+          console.log(grabTypes(pokemon));
+          return (
+            pokemon.name.search(regex) != -1 ||
+            grabTypes(pokemon).search(regex) != -1
+          );
         });
+        arr = filteredPokemon;
       } else {
         arr = [];
       }
-
       this.pokemons = this.orderItems(arr);
     },
     toggleOrder() {

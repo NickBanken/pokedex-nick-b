@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
-
 import type { PropType } from "vue";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
 
-import TypeLabel from "../ui/TypeLabel.vue";
+import TypeLabel from "./TypeLabel.vue";
 
 import type Pokemon from "@/types/pokemon";
+
 import chevronRight from "@/assets/icons/chevron-right.vue";
 
 const { pokemon } = defineProps({
