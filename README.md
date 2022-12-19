@@ -4,6 +4,20 @@ A technical test made for [WISEMEN]('https://wisemen.digital/') in December 2022
 
 ## Table of content
 
+- [Pokédex Challenge](#pokédex-challenge)
+  - [Table of content](#table-of-content)
+  - [Design](#design)
+  - [Objective](#objective)
+  - [Requirements](#requirements)
+    - [Functionality](#functionality)
+    - [Technical](#technical)
+  - [Tools](#tools)
+  - [Finished look](#finished-look)
+  - [Deploy](#deploy)
+    - [Clone](#clone)
+    - [Install packages](#install-packages)
+    - [Run](#run)
+
 ## Design
 
 <p align="center">
@@ -51,7 +65,7 @@ The client has always been a big fan of the original 151 Pokémon, and would lik
 - [ ] Trainers are used to seeing the stats of a Pokémon in the typical hexagon graph.
 </details>
 
-### Functionality
+### Technical
 
 - [x] Working with a JS Framework such as Vue, Angular, …
 
