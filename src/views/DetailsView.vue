@@ -60,11 +60,13 @@ watch(team, (val) => {
 });
 
 const handleTeamButton = computed(() => {
-  let arr = pokemonStore.getLocalStorage(pokemonStore.localKeyTeam);
-  let inTeam = arr.some((teamPokemon: Pokemon) => {
-    return teamPokemon.name === singlePokemon.value?.name;
-  });
-  return arr.length >= 6 && !inTeam;
+  let team = pokemonStore.getLocalStorage(pokemonStore.localKeyTeam);
+  if (team) {
+    let inTeam = team.some((teamPokemon: Pokemon) => {
+      return teamPokemon.name === singlePokemon.value?.name;
+    });
+    return team.length >= 6 && !inTeam;
+  }
 });
 </script>
 
