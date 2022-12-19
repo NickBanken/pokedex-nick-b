@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onBeforeMount } from "vue";
+import { onBeforeMount, watch } from "vue";
 
 import SortComponent from "@/components/home/SortComponent.vue";
-import InputComponentVue from "@/components/home/InputComponent.vue";
+import InputComponent from "@/components/home/InputComponent.vue";
 import ListComponent from "@/components/ui/ListComponent.vue";
 
 import { usePokemonStore } from "@/stores/PokemonStore";
-import FilterIcon from "@/assets/icons/filterIcon.vue";
+import OrderIcon from "@/assets/icons/orderIcon.vue";
 import CardCounter from "@/components/ui/CardCounter.vue";
 import PageLayout from "@/components/ui/PageLayout.vue";
 
@@ -15,6 +15,21 @@ const pokemonStore = usePokemonStore();
 onBeforeMount(() => {
   pokemonStore.fetchPokemons();
 });
+
+//disable the outer scroll when opening the ordermodal.
+watch(
+  () => pokemonStore.showOrder,
+  (newVal: boolean, _) => {
+    if (newVal) {
+      document.documentElement.style.overflowY = "scroll";
+      document.documentElement.style.position = "fixed";
+      document.documentElement.style.width = "100%";
+    } else {
+      document.documentElement.style.overflowY = "auto";
+      document.documentElement.style.position = "static";
+    }
+  }
+);
 </script>
 
 <template>
@@ -24,15 +39,15 @@ onBeforeMount(() => {
         @click="pokemonStore.toggleOrder"
         title="filter"
         type="button"
-        class="mt-5 ml-auto block p-2"
+        class="block p-2 mt-5 ml-auto"
       >
-        <filter-icon />
+        <OrderIcon />
       </button>
       <h1 class="font-display text-[34px] font-bold text-dark">Pokédex</h1>
-      <input-component-vue />
+      <InputComponent />
     </nav>
 
-    <section class="mb-5 grid grid-cols-2 gap-2">
+    <section class="grid grid-cols-2 gap-2 mb-5">
       <router-link :to="'/list/' + 'team'">
         <CardCounter
           :title="'Mijn team'"
@@ -51,7 +66,6 @@ onBeforeMount(() => {
     </section>
 
     <section class="mb-20">
-      <!-- <list-component-vue class="mb-5" /> -->
       <ListComponent
         :pokemons="pokemonStore.getAllPokemons"
         :error="pokemonStore.error"
@@ -60,24 +74,6 @@ onBeforeMount(() => {
       />
     </section>
   </PageLayout>
-  <transition name="fade">
-    <SortComponent
-      @wheel.prevent
-      @touchmove.prevent
-      @scroll.prevent
-      v-if="pokemonStore.showOrder"
-    />
-  </transition>
+
+  <SortComponent v-if="pokemonStore.showOrder" />
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

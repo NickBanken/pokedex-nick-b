@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 
-import CardComponentVue from "@/components/home/CardComponent.vue";
+import CardComponent from "@/components/home/CardComponent.vue";
 import ErrorMessage from "@/components/ui/ErrorMessage.vue";
 import LoadingComponent from "./LoadingComponent.vue";
 
@@ -26,7 +26,7 @@ const { pokemons, error, loading, message, lightText } = defineProps([
     appear
   >
     <transition-group name="list">
-      <card-component-vue
+      <CardComponent
         :key="pokemon.name"
         :pokemon="pokemon"
         :centered="pokemons.length == 1"
@@ -34,10 +34,11 @@ const { pokemons, error, loading, message, lightText } = defineProps([
       />
     </transition-group>
   </transition>
+
   <ErrorMessage :error="error" :img="snorlax" v-else-if="error"></ErrorMessage>
   <h2
     :class="lightText ? 'text-white' : 'text-black'"
-    class="mt-20 text-center text-xl"
+    class="mt-20 text-xl text-center"
     v-else-if="!loading"
   >
     {{ message }}

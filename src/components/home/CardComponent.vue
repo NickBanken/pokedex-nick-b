@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
-import type { PropType } from "vue";
+import { defineProps } from "vue";
 
-import { useMotion } from "@vueuse/motion";
+import type { PropType } from "vue";
 
 import { addCapitalFirstLetter } from "@/utils/utils";
 
@@ -21,24 +20,10 @@ const { pokemon } = defineProps({
     type: Boolean,
   },
 });
-
-const target = ref();
-
-useMotion(target, {
-  initial: {
-    opacity: 0,
-    y: 100,
-  },
-  visibleOnce: {
-    opacity: 1,
-    y: 0,
-  },
-});
 </script>
 
 <template>
   <li
-    ref="target"
     :class="centered ? 'justify-self-start' : 'justify-self-center'"
     class="w-full"
   >
@@ -48,13 +33,13 @@ useMotion(target, {
     >
       <img
         loading="lazy"
-        class="-m-5 -ml-2 -mr-4 h-full"
+        class="h-full -m-5 -ml-2 -mr-4"
         :src="pokemon.sprites['front_default']"
         :alt="'pokemon-' + pokemon.name"
       />
 
       <div class="ml-4">
-        <h2 class="text-large font-bold">
+        <h2 class="font-bold text-large">
           {{ addCapitalFirstLetter(pokemon.name) }}
         </h2>
         <p class="text-normal text-grey">
@@ -62,7 +47,7 @@ useMotion(target, {
         </p>
       </div>
 
-      <type-label class="ml-auto justify-end" :pokemon="pokemon" />
+      <type-label class="justify-end ml-auto" :pokemon="pokemon" />
 
       <chevronRight class="ml-2"></chevronRight>
     </router-link>

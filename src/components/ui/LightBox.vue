@@ -1,19 +1,6 @@
-<template>
-  <button @click="showSingle">
-    <slot></slot>
-  </button>
-
-  <vue-easy-lightbox
-    :visible="visibleRef"
-    :imgs="imgsRef"
-    :index="indexRef"
-    @hide="onHide"
-  ></vue-easy-lightbox>
-</template>
-
 <script setup lang="ts">
 import VueEasyLightbox from "vue-easy-lightbox";
-import { ref, defineComponent, defineProps } from "vue";
+import { ref, defineProps } from "vue";
 import type { Ref } from "vue";
 
 const visibleRef = ref(false);
@@ -32,3 +19,16 @@ const showSingle = () => {
 
 const onHide = () => (visibleRef.value = false);
 </script>
+
+<template>
+  <button @click="showSingle">
+    <slot></slot>
+  </button>
+
+  <VueEasyLightbox
+    :visible="visibleRef"
+    :imgs="imgsRef"
+    :index="indexRef"
+    @hide="onHide"
+  ></VueEasyLightbox>
+</template>
