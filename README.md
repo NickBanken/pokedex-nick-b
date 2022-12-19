@@ -30,7 +30,7 @@ The client has always been a big fan of the original 151 Pokémon, and would lik
 
 - [x] Trainers have a separate list with only their favourite Pokémon.
 
-<details open>
+<details>
 <summary>Nice to have</summary>
 <br>
 
@@ -85,7 +85,7 @@ The client has always been a big fan of the original 151 Pokémon, and would lik
 
 - [x] Use of external libraries when applicable (Don’t reinvent the wheel) (e.g. Axios)
 
-<details open>
+<details>
 <summary>Nice to have</summary>
 <br>
 
