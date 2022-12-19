@@ -113,7 +113,7 @@ The client has always been a big fan of the original 151 Pokémon, and would lik
 ## Finished look
 
 <p align="center">
-<img src="./resources/pokedex-preview.png" width="600px">
+<img src="./resources/previewPokedex.png" width="600px">
 </p>
 
 ## Deploy
